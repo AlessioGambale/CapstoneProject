@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
 
     [Header("References")]
-    [SerializeField] private PlayerMover _movement;
+    [SerializeField] private PlayerCreature _movement;
     [SerializeField] private InputHandler _input;
 
     private bool _isInCombat;
@@ -16,7 +14,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         if (_movement == null)
-            _movement = GetComponent<PlayerMover>();
+            _movement = GetComponent<PlayerCreature>();
 
         if (_input == null)
             _input = GetComponent<InputHandler>();

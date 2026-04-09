@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerCreature : Creature
 {
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 5f;
@@ -22,7 +24,7 @@ public class PlayerMover : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        
+
     }
     private void Update()
     {
@@ -40,7 +42,6 @@ public class PlayerMover : MonoBehaviour
         Vector3 targetVelocity = moveDir * _moveSpeed;
         _rb.velocity = new Vector3(targetVelocity.x, _rb.velocity.y, targetVelocity.z);
 
-        // Rotazione verso la direzione del movimento
         Quaternion targetRotation = Quaternion.LookRotation(moveDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
     }
@@ -49,10 +50,20 @@ public class PlayerMover : MonoBehaviour
     {
         if (_input.IsJumpPressed && _groundCheck.IsGrounded)
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); // reset verticale
+            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); 
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }
-}
-    
 
+    public override void Hit(float damage)
+    {
+        float finalDamage = LifeController.IsHpCritical ? damage * 1.5f : damage;
+        base.Hit(finalDamage);
+    }
+
+    public override void Die()
+    {
+            
+    }
+    
+}
