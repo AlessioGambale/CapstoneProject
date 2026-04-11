@@ -828,9 +828,9 @@ GameObject:
   - component: {fileID: 1561910428}
   - component: {fileID: 1561910427}
   - component: {fileID: 1561910433}
-  - component: {fileID: 1561910432}
   - component: {fileID: 1561910431}
   - component: {fileID: 1561910434}
+  - component: {fileID: 1561910435}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -940,23 +940,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83aec464b01742b488d58044cecb51c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1561910432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561910426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ba6648f3a001a4fab1c9c6a96c0e92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rotationSpeed: 10
-  _jumpForce: 5
-  _input: {fileID: 1561910431}
-  _groundCheck: {fileID: 1167431912}
 --- !u!54 &1561910433
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -996,8 +979,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cc6e03a62b81e4e89132a8908de2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement: {fileID: 1561910432}
+  _movement: {fileID: 0}
   _input: {fileID: 0}
+--- !u!114 &1561910435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561910426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15807ac2f0b4c04cb30889551dcb0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _creatureName: Player
+  _stats: {fileID: 0}
+  _moveSpeed: 5
+  _rotationSpeed: 10
+  _jumpForce: 5
+  _input: {fileID: 1561910431}
+  _groundCheck: {fileID: 1167431912}
 --- !u!1 &1571604777
 GameObject:
   m_ObjectHideFlags: 3
