@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/Weapons")]
@@ -13,6 +11,9 @@ public class SO_Weapon : SO_GenericItem
     [SerializeField] private float _specialDamageMultiplier;
     [SerializeField] private bool _ignoresDefence;
     [SerializeField] private bool _isAOE;
+    [SerializeField] private int _baseAttackAPCost = 1;
+    [SerializeField] private int _specialAttackAPCost = 2;
+
 
     public int BaseDamage => _baseDamage;
     public StatusType StatusType => _statusType;
@@ -21,6 +22,8 @@ public class SO_Weapon : SO_GenericItem
     public float SpecialDamageMultiplier => _specialDamageMultiplier;
     public bool IgnoreDefence => _ignoresDefence;
     public bool IsAOE => _isAOE;
+    public int BaseAttackAPCost => _baseAttackAPCost;
+    public int SpecialAttackAPCost => _specialAttackAPCost;
 
     public override void Use(GameObject user) { }
 }

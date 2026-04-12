@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -45,9 +42,11 @@ public class LifeController : MonoBehaviour
         if (hp != _currentHealth)
         {
             _currentHealth = hp;
+            Debug.Log($"[Life] {gameObject.name} HP: {_currentHealth}/{_maxHealth}");
             _onHealthChange?.Invoke(_currentHealth, _maxHealth);
             if (_currentHealth <= 0)
             {
+                Debug.Log($"[Life] {gameObject.name} è schiattattt");
                 _onDeath?.Invoke();
             }
         }

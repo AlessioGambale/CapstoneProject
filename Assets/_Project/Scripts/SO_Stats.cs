@@ -15,7 +15,7 @@ public class SO_Stats : ScriptableObject
     public int Attack => _attack;
     public float DefencePercent => _defencePercent;
     public int Luck => _luck;   
-    public float MaxAP => _maxAP;
+    public int MaxAP => _maxAP;
     public int MaxEP => _maxEP;
     public int Speed => _speed;
 }

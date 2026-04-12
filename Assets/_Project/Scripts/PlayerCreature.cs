@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCreature : Creature
@@ -15,10 +13,13 @@ public class PlayerCreature : Creature
 
     private Rigidbody _rb;
 
-    void Awake()
+    protected override void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         if (_input == null) _input = GetComponent<InputHandler>();
+        base.Awake();
+        CombatManager.Instance.RegisterPlayer(this);
+
     }
 
     void FixedUpdate()
@@ -57,6 +58,10 @@ public class PlayerCreature : Creature
 
     public override void Hit(float damage)
     {
+        if (LifeController == null)
+        {
+            Debug.Log("lifc Null sul player");
+        }
         float finalDamage = LifeController.IsHpCritical ? damage * 1.5f : damage;
         base.Hit(finalDamage);
     }

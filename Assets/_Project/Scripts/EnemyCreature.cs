@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyCreature : Creature
 {
     public override void Die()
@@ -10,6 +6,14 @@ public class EnemyCreature : Creature
     }
     public override void Hit(float damage)
     {
-            base.Hit(damage);
+        base.Hit(damage);
     }
+
+    void Start()
+    {
+        base.Awake();
+        CombatManager.Instance.RegisterEnemy(this);
+    }
+
 }
+

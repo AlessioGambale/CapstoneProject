@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
+  m_Name: Spiral Candy Stick
+  m_EditorClassIdentifier: 
+  _name: Spiral Candy Stick
+  _description: 
+  _icon: {fileID: 0}
+  _id: 0
+  _baseDamage: 20
+  _statusType: 3
+  _statusBuildUp: 0
+  _specialType: 3
+  _specialDamageMultiplier: 1.2
+  _ignoresDefence: 0
+  _isAOE: 0
+  _baseAttackAPCost: 1
+  _specialAttackAPCost: 2

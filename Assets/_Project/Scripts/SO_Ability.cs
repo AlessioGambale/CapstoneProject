@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/Ability")]
@@ -11,9 +9,10 @@ public class SO_Ability : SO_GenericItem
     [SerializeField] private int _apCost;
     [SerializeField] private float _duration;
 
+
     public AbilityType AbilityType => _abilityType;
     public float Value => _value;
-    public float ApCost => _apCost;
+    public int ApCost => _apCost;
     public float Duration => _duration;
 
     public override void Use(GameObject user)
