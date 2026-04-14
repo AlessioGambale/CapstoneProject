@@ -1,16 +1,28 @@
 using UnityEngine;
 
-public abstract class SO_GenericItem : ScriptableObject
+public abstract class SO_GenericItem : ScriptableObject, IIdentificable
 {
+    [Header("Info")]
+    [SerializeField] private ObjectID _id;
     [SerializeField] private string _name;
-    [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
-    [SerializeField] private int _id;
+    [SerializeField] private string _description;
+    [SerializeField][Min(0)] private int _buyPrice;
+    [SerializeField][Min(0)] private int _sellPrice;
 
-    public string Name => _name;
-    public string Description => _description;
+    [Header("Options")]
+    [SerializeField] private bool _isStackable = true;
+    [SerializeField] private bool _isConsumable = true;
+
+    public ObjectID ID { get => _id; }
     public Sprite Icon => _icon;
-    public int Id => _id;
+    public string Name => _name;
+    public int BuyPrice => _buyPrice;
+    public int SellPrice => _sellPrice;
+    public string Description => _description;
+    public bool IsStackable => _isStackable;
+    public bool IsConsumable => _isConsumable;
+
 
     public abstract void Use(GameObject user);
 }

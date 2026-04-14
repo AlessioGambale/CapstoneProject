@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class PlayerExplorationState : FSM_BaseState<PlayerCreature>
 {
-    public override void OnStateEnter()
+    private PlayerStateHandler _stateHandler;
+
+    public override void SetUp(FSM_Controller<PlayerCreature> controller, PlayerCreature owner)
     {
-        
+        base.SetUp(controller, owner);
+        _stateHandler = owner.GetComponent<PlayerStateHandler>();
     }
 
-    public override void StateUpdate()
+    public override void OnStateEnter()
     {
-        
+        _stateHandler.ExitCombat();
     }
+
+    public override void StateUpdate() { }
 
     public override void OnStateExit()
     {
-
+        _stateHandler.EnterCombat();
     }
 }
