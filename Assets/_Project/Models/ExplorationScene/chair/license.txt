@@ -1,0 +1,11 @@
+Model Information:
+* title:	Chair
+* source:	https://sketchfab.com/3d-models/chair-6f830f949d224603bd37c90a190945ae
+* author:	vegu (https://sketchfab.com/iamvegu)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Chair" (https://sketchfab.com/3d-models/chair-6f830f949d224603bd37c90a190945ae) by vegu (https://sketchfab.com/iamvegu) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

@@ -1,0 +1,58 @@
+fileFormatVersion: 2
+guid: 051c5bde3ce390549acb11eed07dbe06
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 715df9372183c47e389bb6e19fbc3b52, type: 3}
+  editorImportSettings:
+    generateSecondaryUVSet: 0
+  importSettings:
+    nodeNameMethod: 1
+    animationMethod: 2
+    generateMipMaps: 1
+    texturesReadable: 0
+    defaultMinFilterMode: 9729
+    defaultMagFilterMode: 9729
+    anisotropicFilterLevel: 1
+  instantiationSettings:
+    mask: -1
+    layer: 0
+    skinUpdateWhenOffscreen: 1
+    lightIntensityFactor: 1
+    sceneObjectCreation: 2
+  assetDependencies:
+  - type: 0
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\scene.bin
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\scene.bin
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\poteau_diffuse.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\poteau_diffuse.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\poteau_normal.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\poteau_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_diffuse.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_diffuse.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_specularGlossiness.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_specularGlossiness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_normal.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\material_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche2_diffuse.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche2_diffuse.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche2_normal.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche2_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche1_diffuse.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche1_diffuse.png
+  - type: 1
+    originalUri: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche1_normal.png
+    assetPath: Assets\_Project\Models\Castle\medieval_pack_-_wood_set_1\textures\buche1_normal.png
+  reportItems: []

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wood shapes. Toy kid
+* source:	https://sketchfab.com/3d-models/wood-shapes-toy-kid-b503242bacef43d59fff218d48fe6e2b
+* author:	nanoSpawn (https://sketchfab.com/nanoSpawn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wood shapes. Toy kid" (https://sketchfab.com/3d-models/wood-shapes-toy-kid-b503242bacef43d59fff218d48fe6e2b) by nanoSpawn (https://sketchfab.com/nanoSpawn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

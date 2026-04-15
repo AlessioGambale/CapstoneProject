@@ -18,8 +18,12 @@ public class PlayerCreature : Creature
         _rb = GetComponent<Rigidbody>();
         if (_input == null) _input = GetComponent<InputHandler>();
         base.Awake();
-        CombatManager.Instance.RegisterPlayer(this);
+        
 
+    }
+    private void Start()
+    {
+        CombatManager.Instance.RegisterPlayer(this);
     }
 
     void FixedUpdate()
