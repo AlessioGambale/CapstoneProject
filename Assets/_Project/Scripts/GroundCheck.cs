@@ -1,24 +1,36 @@
+using System;
 using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-    [SerializeField] private Transform _checkPoint;
-    [SerializeField] private float _checkDistance = 0.2f;
-    [SerializeField] private LayerMask _groundLayer;
+    [Header("Ground Check Settings")]
+    [SerializeField] private float _radius = 0.45f;
+    [SerializeField] private LayerMask _groundMask;
 
-    private bool _isGrounded;
+    [Header("Debug")]
+    [SerializeField] private bool _isGrounded = true;
 
+    public event Action<bool> OnIsGroundedChange;
     public bool IsGrounded => _isGrounded;
 
-    void FixedUpdate()
+    public void CheckIsGrounded()
     {
-        _isGrounded = Physics.Raycast(_checkPoint.position, Vector3.down, _checkDistance, _groundLayer);
+        bool wasGrounded = _isGrounded;
+
+        _isGrounded = Physics.CheckSphere(transform.position, _radius, _groundMask);
+
+        if (wasGrounded != _isGrounded) OnIsGroundedChange?.Invoke(_isGrounded);
     }
 
-    void OnDrawGizmosSelected()
+    private void Update()
     {
-        if (_checkPoint == null) return;
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(_checkPoint.position, _checkPoint.position + Vector3.down * _checkDistance);
+        CheckIsGrounded();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = _isGrounded ? Color.yellow : Color.blue;
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 }
+

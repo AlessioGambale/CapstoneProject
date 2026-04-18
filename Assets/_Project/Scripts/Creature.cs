@@ -11,10 +11,14 @@ public abstract class Creature : MonoBehaviour
     public bool IsDead => LifeController.IsDead;
     public bool IsHpCritical => LifeController.IsHpCritical;
 
+    private void Start()
+    {
+        LifeController.SetMaxHealth(_stats.MaxHP);
+    }
+
     protected virtual void Awake()
     {
         LifeController = GetComponent<LifeController>();
-        LifeController.SetMaxHealth(_stats.MaxHP);
         LifeController.RestoreFullHp();
     }
 

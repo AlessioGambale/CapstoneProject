@@ -11,18 +11,26 @@ public class PlayerCreature : Creature
     [SerializeField] private InputHandler _input;
     [SerializeField] private GroundCheck _groundCheck;
 
+    private bool _isJumping = false;
+
+    private AnimationParamHandler _paramHandler; 
     private Rigidbody _rb;
 
+    private void OnEnable()
+    {
+        _groundCheck.OnIsGroundedChange += HandleJump;
+    }
     protected override void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _paramHandler = GetComponent<AnimationParamHandler>();  
         if (_input == null) _input = GetComponent<InputHandler>();
         base.Awake();
         
 
     }
-    private void Start()
-    {
+    private void OnTriggerEnter()
+    { //
         CombatManager.Instance.RegisterPlayer(this);
     }
 
@@ -33,7 +41,9 @@ public class PlayerCreature : Creature
     }
     private void Update()
     {
+        _paramHandler.SetForward(_input.MoveInput.magnitude);
         Jump();
+
     }
 
     private void Move()
@@ -53,11 +63,23 @@ public class PlayerCreature : Creature
 
     private void Jump()
     {
-        if (_input.IsJumpPressed && _groundCheck.IsGrounded)
+        if (_input.IsJumpPressed && _groundCheck.IsGrounded && !_isJumping)
         {
+            _isJumping = true;  
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); 
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _paramHandler.Jump();
         }
+    }
+    
+    public void HandleJump(bool IsGrounded)
+    {
+        if (IsGrounded)
+        {
+            _isJumping = false;
+           _paramHandler.ResetJump();
+        }
+        _paramHandler.SetIsGrounded(IsGrounded);
     }
 
     public override void Hit(float damage)
@@ -72,7 +94,12 @@ public class PlayerCreature : Creature
 
     public override void Die()
     {
-            
+        _paramHandler.Death();   
     }
-    
+
+    private void OnDisable()
+    {
+        _groundCheck.OnIsGroundedChange -= HandleJump;
+    }
+
 }
