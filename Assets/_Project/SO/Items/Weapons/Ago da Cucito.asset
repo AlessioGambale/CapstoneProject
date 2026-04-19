@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Ago da Cucito
   m_EditorClassIdentifier: 
-  _name: Ago da Cucito
-  _description: 
-  _icon: {fileID: 0}
   _id: 0
+  _name: Ago da Cucito
+  _icon: {fileID: 0}
+  _description: 
+  _buyPrice: 0
+  _sellPrice: 0
+  _isStackable: 1
+  _isConsumable: 0
   _baseDamage: 0
   _statusType: 2
   _statusBuildUp: 0

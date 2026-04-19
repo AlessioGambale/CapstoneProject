@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: b892820972c822f41a04b9cf5d1b2616
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 715df9372183c47e389bb6e19fbc3b52, type: 3}
+  editorImportSettings:
+    generateSecondaryUVSet: 0
+  importSettings:
+    nodeNameMethod: 1
+    animationMethod: 2
+    generateMipMaps: 1
+    texturesReadable: 0
+    defaultMinFilterMode: 9729
+    defaultMagFilterMode: 9729
+    anisotropicFilterLevel: 1
+  instantiationSettings:
+    mask: -1
+    layer: 0
+    skinUpdateWhenOffscreen: 1
+    lightIntensityFactor: 1
+    sceneObjectCreation: 2
+  assetDependencies:
+  - type: 0
+    originalUri: Assets\_Project\Models\the_wandering_smith\scene.bin
+    assetPath: Assets\_Project\Models\the_wandering_smith\scene.bin
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.002_tx_hr_barrel.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.01_canvasside.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.002_wood.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.003_rope.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.004_canvas.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_texture.dds_Texture.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\noname.00_noname.00_tx_a_barbir_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.003_Texture.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001.00_tx_fearstruck.dds_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\mat0.001_stand.png_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_Wood_wood.png_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Mat_Grinder_grinder.png_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.00_Smithy.png_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material_tx_shotn_horseshoe01._normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.00_tex_0017_0_dds.000_2d_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Tex_0018_0_dds.000_tex_0018_0_dds.000_2d_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material__772.001_material__772_2d_view_normal.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_baseColor.jpeg
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_baseColor.jpeg
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_metallicRoughness.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_metallicRoughness.png
+  - type: 1
+    originalUri: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_normal.png
+    assetPath: Assets\_Project\Models\the_wandering_smith\textures\Material.001_texture02.dds_normal.png
+  reportItems: []

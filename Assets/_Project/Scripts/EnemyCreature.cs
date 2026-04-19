@@ -12,7 +12,6 @@ public class EnemyCreature : Creature
     void Start()
     {
         base.Awake();
-        CombatManager.Instance.RegisterEnemy(this);
     }
 
 }

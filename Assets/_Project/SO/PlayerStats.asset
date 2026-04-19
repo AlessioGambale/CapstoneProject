@@ -16,6 +16,6 @@ MonoBehaviour:
   _attack: 40
   _defencePercent: 0
   _luck: 25
-  _maxAP: 10
+  _maxAP: 4
   _maxEP: 5
   _speed: 0

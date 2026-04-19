@@ -24,4 +24,3 @@ public class PlayerCombatState : FSM_BaseState<PlayerCreature>
         _stateHandler.ExitCombat();
     }
 }
-

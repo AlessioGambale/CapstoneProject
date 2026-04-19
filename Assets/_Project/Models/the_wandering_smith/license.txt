@@ -1,0 +1,11 @@
+Model Information:
+* title:	The wandering smith
+* source:	https://sketchfab.com/3d-models/the-wandering-smith-b64167041c9543f1bfb58a871da5ce1c
+* author:	Asylum Nox (https://sketchfab.com/peter.pottiez)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The wandering smith" (https://sketchfab.com/3d-models/the-wandering-smith-b64167041c9543f1bfb58a871da5ce1c) by Asylum Nox (https://sketchfab.com/peter.pottiez) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

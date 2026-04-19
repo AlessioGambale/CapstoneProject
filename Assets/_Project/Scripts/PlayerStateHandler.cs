@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStateHandler : MonoBehaviour
@@ -6,48 +7,57 @@ public class PlayerStateHandler : MonoBehaviour
     [SerializeField] private PlayerCreature _playerCreature;
     [SerializeField] private InputHandler _input;
 
-    private bool _isInCombat;
-    public bool IsInCombat => _isInCombat;
+    public bool IsInCombat { get; private set; }
+
+    public event Action OnCombatEnter;
+    public event Action OnCombatExit;
 
     private void Awake()
     {
-        if (_playerCreature == null)
-            _playerCreature = GetComponent<PlayerCreature>();
-        if (_input == null)
-            _input = GetComponent<InputHandler>();
+        if (_playerCreature == null) _playerCreature = GetComponent<PlayerCreature>();
+        if (_input == null) _input = GetComponent<InputHandler>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-            EnterCombat();
-        if (Input.GetKeyDown(KeyCode.V))
-            ExitCombat();
-
-        HandleState();
+        CombatManager.Instance.OnCombatVictory += HandleVictory;
+        CombatManager.Instance.OnCombatDefeat += HandleDefeat;
     }
 
-    private void HandleState()
+    private void OnDestroy()
     {
-        if (_isInCombat)
-        {
-            _playerCreature.enabled = false;
-            _input.enabled = false;
-        }
-        else
-        {
-            _playerCreature.enabled = true;
-            _input.enabled = true;
-        }
+        CombatManager.Instance.OnCombatVictory -= HandleVictory;
+        CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
+    }
+
+    private void HandleVictory()
+    {
+        GetComponent<PlayerToExplorationTransition>().TriggerTransition = true;
+    }
+
+    private void HandleDefeat()
+    {
+        _playerCreature.Die();
     }
 
     public void EnterCombat()
     {
-        _isInCombat = true;
+        Debug.Log("EnterCombat funziona");
+        if (IsInCombat) return;
+        IsInCombat = true;
+        _playerCreature.enabled = false;
+        _input.enabled = false;
+        Debug.Log("Player lockato");
+        CombatManager.Instance.RegisterPlayer(_playerCreature);
+        OnCombatEnter?.Invoke();
     }
 
     public void ExitCombat()
     {
-        _isInCombat = false;
+        if (!IsInCombat) return;
+        IsInCombat = false;
+        _playerCreature.enabled = true;
+        _input.enabled = true;
+        OnCombatExit?.Invoke();
     }
 }

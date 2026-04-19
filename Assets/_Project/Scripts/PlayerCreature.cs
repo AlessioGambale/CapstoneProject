@@ -30,8 +30,8 @@ public class PlayerCreature : Creature
 
     }
     private void OnTriggerEnter()
-    { //
-        CombatManager.Instance.RegisterPlayer(this);
+    { 
+        //CombatManager.Instance.RegisterPlayer(this);
     }
 
     void FixedUpdate()
