@@ -12867,6 +12867,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 899608860}
+    - targetCorrespondingSourceObject: {fileID: 1264594006414994017, guid: 0fc03c26cc0173948b132c0b58a6cc77,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 899608861}
   m_SourcePrefab: {fileID: 100100000, guid: 0fc03c26cc0173948b132c0b58a6cc77, type: 3}
 --- !u!1 &899608858 stripped
 GameObject:
@@ -12908,6 +12912,29 @@ MonoBehaviour:
   _onHealthChange:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &899608861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899608858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b136672d2d8bae45a44bcab93124983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionDelay: 1.5
+  _healThresholdLow: 0.3
+  _healThresholdMid: 0.6
+  _playerKillThreshold: 0.3
+  _attackWeightHigh: 100
+  _attackWeightMid: 70
+  _attackWeightLow: 20
+  _healWeightHigh: 0
+  _healWeightMid: 30
+  _healWeightLow: 80
+  _healPercent: 0.2
 --- !u!1 &918151813
 GameObject:
   m_ObjectHideFlags: 0
@@ -14567,7 +14594,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a3bea1a24d29114d8cdbc45ef906a35, type: 2}
+  - {fileID: 2100000, guid: 4ec5505cb0a06e2448f950f90f0700b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

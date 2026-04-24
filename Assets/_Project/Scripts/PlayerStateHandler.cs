@@ -8,7 +8,6 @@ public class PlayerStateHandler : MonoBehaviour
     [SerializeField] private InputHandler _input;
 
     public bool IsInCombat { get; private set; }
-
     public event Action OnCombatEnter;
     public event Action OnCombatExit;
 
@@ -20,14 +19,7 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void Start()
     {
-        CombatManager.Instance.OnCombatVictory += HandleVictory;
-        CombatManager.Instance.OnCombatDefeat += HandleDefeat;
-    }
-
-    private void OnDestroy()
-    {
-        CombatManager.Instance.OnCombatVictory -= HandleVictory;
-        CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
+        
     }
 
     private void HandleVictory()
@@ -42,12 +34,14 @@ public class PlayerStateHandler : MonoBehaviour
 
     public void EnterCombat()
     {
-        Debug.Log("EnterCombat funziona");
         if (IsInCombat) return;
         IsInCombat = true;
         _playerCreature.enabled = false;
         _input.enabled = false;
-        Debug.Log("Player lockato");
+
+        CombatManager.Instance.OnCombatVictory += HandleVictory;
+        CombatManager.Instance.OnCombatDefeat += HandleDefeat;
+
         CombatManager.Instance.RegisterPlayer(_playerCreature);
         OnCombatEnter?.Invoke();
     }
@@ -58,6 +52,10 @@ public class PlayerStateHandler : MonoBehaviour
         IsInCombat = false;
         _playerCreature.enabled = true;
         _input.enabled = true;
+
+        CombatManager.Instance.OnCombatVictory -= HandleVictory;
+        CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
+
         OnCombatExit?.Invoke();
     }
 }

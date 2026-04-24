@@ -1,0 +1,11 @@
+Model Information:
+* title:	Screw Driver (Game-ready model)
+* source:	https://sketchfab.com/3d-models/screw-driver-game-ready-model-64a7b4f5908e4e8bb8bc32a344cf86cb
+* author:	Abyss_Architect (https://sketchfab.com/Abyss_Architect)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Screw Driver (Game-ready model)" (https://sketchfab.com/3d-models/screw-driver-game-ready-model-64a7b4f5908e4e8bb8bc32a344cf86cb) by Abyss_Architect (https://sketchfab.com/Abyss_Architect) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

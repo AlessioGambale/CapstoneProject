@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dog Toys
+* source:	https://sketchfab.com/3d-models/dog-toys-86da9751c41043e0b1091c588d15eb4a
+* author:	shellybrulez (https://sketchfab.com/shellybrulez)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dog Toys" (https://sketchfab.com/3d-models/dog-toys-86da9751c41043e0b1091c588d15eb4a) by shellybrulez (https://sketchfab.com/shellybrulez) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

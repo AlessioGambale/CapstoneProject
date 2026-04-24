@@ -85,13 +85,31 @@ public class CombatManager : GenericSingleton<CombatManager>
     private void HandleEnemyTurn()
     {
         EnemyCreature enemy = TurnManager.Instance.CurrentEnemy;
-        if (enemy == null) return;
-        ExecuteEnemyAction(enemy);
+        if (enemy == null)
+        {
+            Debug.LogWarning("[CombatManager] HandleEnemyTurn — CurrentEnemy è null");
+            return;
+        }
+
+        EnemyAI ai = enemy.GetComponent<EnemyAI>();
+        if (ai == null)
+        {
+            Debug.LogWarning($"[CombatManager] {enemy.name} non ha EnemyAI — uso attacco base di fallback");
+            ExecuteEnemyAction(enemy);
+            return;
+        }
+
+        Debug.Log($"[CombatManager] Delego turno a EnemyAI di {enemy.name}");
+        ai.ExecuteTurn(_player, () =>
+        {
+            TurnManager.Instance.NotifyEnemyTurnFinished();
+        });
     }
 
     private void ExecuteEnemyAction(EnemyCreature enemy)
     {
         float damage = CalculateDamage(enemy.Stats.Attack, enemy.Stats.Attack);
+        Debug.Log($"[CombatManager] Fallback — {enemy.name} attacca per {damage}");
         _player.Hit(damage);
         TurnManager.Instance.NotifyEnemyTurnFinished();
     }
