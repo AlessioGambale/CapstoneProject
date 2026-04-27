@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("ExplorationScene");
     }
     public void Restart()
     {

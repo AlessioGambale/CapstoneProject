@@ -31,7 +31,6 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        // 
         _playerRb = _playerCreature != null ? _playerCreature.GetComponent<Rigidbody>() : null;
     }
 
@@ -78,7 +77,6 @@ public class CarController : MonoBehaviour
         Vector3 _forward = (_hitFront.point - _hitBack.point).normalized;
         Vector3 _normal = (_hitFront.normal + _hitBack.normal).normalized;
 
-        // ntieni lo steering
         float currentY = transform.eulerAngles.y;
 
         Quaternion _target = Quaternion.LookRotation(_forward, _normal);
