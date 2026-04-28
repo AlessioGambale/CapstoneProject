@@ -6,6 +6,7 @@ public abstract class Creature : MonoBehaviour
     [SerializeField] private SO_Stats _stats;
 
     public LifeController LifeController { get; private set; }
+
     public string CreatureName => _creatureName;
     public SO_Stats Stats => _stats;
     public bool IsDead => LifeController.IsDead;
@@ -14,23 +15,22 @@ public abstract class Creature : MonoBehaviour
     protected virtual void Awake()
     {
         LifeController = GetComponent<LifeController>();
-    }
-
-    private void Start()
-    {
         LifeController.SetMaxHealth(_stats.MaxHP);
-        LifeController.RestoreFullHp(); 
+        LifeController.RestoreFullHp();
     }
 
     public virtual void Hit(float damage)
     {
-        LifeController.TakeDamage(damage ,_stats.DefencePercent);
+        float defence = _stats.DefencePercent;
+        float finalDamage = damage * (1f - Mathf.Clamp01(defence));
+
+        LifeController.TakeDamage(finalDamage);
     }
 
-    public virtual void Die()
+    public void TakeDamageRaw(float damage)
     {
-        
+        LifeController.TakeDamage(damage);
     }
 
-   
+    public virtual void Die() { }
 }

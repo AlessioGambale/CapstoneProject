@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class TurnManager : GenericSingleton<TurnManager>
 {
     private PlayerCreature _player;
@@ -19,19 +20,11 @@ public class TurnManager : GenericSingleton<TurnManager>
     public int CurrentAP { get; private set; }
 
     private bool _enemyTurnFinished;
-    private bool _combatActive;
 
     public void SetUp(PlayerCreature player, List<EnemyCreature> enemies)
     {
         _player = player;
         _enemies = enemies;
-        _combatActive = true;
-    }
-
-    public void StopCombat()
-    {
-        _combatActive = false;
-        StopAllCoroutines();
     }
 
     public void StartCombat()
@@ -42,25 +35,23 @@ public class TurnManager : GenericSingleton<TurnManager>
 
     public void StartPlayerTurn()
     {
-        if (!_combatActive) return;
         IsPlayerTurn = true;
-        CurrentAP = _player.Stats.MaxAP;
-        Debug.Log($"Turno player — MaxAP: {_player.Stats.MaxAP}, CurrentAP: {CurrentAP}");
+        CurrentAP = Mathf.Max(0, _player.Stats.MaxAP - CombatManager.Instance.ConsumeHealPenalty());
         OnAPChanged?.Invoke(CurrentAP);
         OnPlayerTurnStarted?.Invoke();
+        Debug.Log($"[Turn] Turno player — AP: {CurrentAP}");
     }
 
     public bool TrySpendAP(int cost)
     {
-        Debug.Log($"TrySpendAP — costo: {cost}, AP disponibili: {CurrentAP}");
         if (CurrentAP < cost)
         {
-            Debug.Log("AP insufficienti");
+            Debug.Log($"[Turn] AP insufficienti — richiesti: {cost}, disponibili: {CurrentAP}");
             return false;
         }
         CurrentAP -= cost;
         OnAPChanged?.Invoke(CurrentAP);
-        Debug.Log($"AP rimasti: {CurrentAP}");
+        Debug.Log($"[Turn] AP spesi: {cost} — AP rimasti: {CurrentAP}");
         return true;
     }
 
@@ -68,18 +59,20 @@ public class TurnManager : GenericSingleton<TurnManager>
     {
         CurrentAP = Mathf.Clamp(CurrentAP + amount, 0, _player.Stats.MaxAP);
         OnAPChanged?.Invoke(CurrentAP);
+        Debug.Log($"[Turn] AP recuperati: {amount} — AP totali: {CurrentAP}");
     }
 
     public void EndPlayerTurn()
     {
-        if (!_combatActive) return;
         IsPlayerTurn = false;
-        StartEnemyTurn();
+        Debug.Log("[Turn] Fine turno player — inizia turno nemici");
+        StartCoroutine(EnemyTurnRoutine());
     }
 
-    public void StartEnemyTurn() => StartCoroutine(EnemyTurnRoutine());
-
-    public void NotifyEnemyTurnFinished() => _enemyTurnFinished = true;
+    public void NotifyEnemyTurnFinished()
+    {
+        _enemyTurnFinished = true;
+    }
 
     private IEnumerator EnemyTurnRoutine()
     {
@@ -89,24 +82,15 @@ public class TurnManager : GenericSingleton<TurnManager>
 
             CurrentEnemy = enemy;
             _enemyTurnFinished = false;
+            Debug.Log($"[Turn] Turno nemico — {enemy.CreatureName}");
             OnEnemyTurnStarted?.Invoke();
-            Debug.Log($"Aspetto fine turno {enemy.name}");
 
-            float timer = 0f;
-            yield return new WaitUntil(() =>
-            {
-                timer += Time.deltaTime;
-                return _enemyTurnFinished || enemy.IsDead || timer >= 5f;
-            });
+            yield return new WaitUntil(() => _enemyTurnFinished || enemy.IsDead);
 
-            Debug.Log($"Fine turno {enemy.name} — finished:{_enemyTurnFinished} dead:{enemy.IsDead} timeout:{timer >= 5f}");
+            enemy.GetComponent<StatusController>()?.OnTurnEnd();
         }
 
-        Debug.Log("OnTurnCycleFinished");
         CurrentEnemy = null;
         OnTurnCycleFinished?.Invoke();
-
-        if (_combatActive)
-            StartPlayerTurn();
     }
 }

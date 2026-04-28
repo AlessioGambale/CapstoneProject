@@ -17,6 +17,33 @@ public class SO_Ability : SO_GenericItem
 
     public override void Use(GameObject user)
     {
+        PlayerCreature player = user.GetComponent<PlayerCreature>();
 
+        switch (_abilityType)
+        {
+            case AbilityType.Shield:
+                CombatManager.Instance.ActivateShield();
+                break;
+
+            case AbilityType.Desperation:
+                int targetHP = Mathf.RoundToInt(player.PlayerLifeController.MaxHealth * 0.25f);
+                player.PlayerLifeController.ForceSetHp(targetHP);
+                CombatManager.Instance.ActivateDesperation(_value);
+                break;
+
+            case AbilityType.Crit:
+                CombatManager.Instance.ActivateCrit();
+                break;
+
+            case AbilityType.Heal:
+                int healAmount = Mathf.RoundToInt(player.PlayerLifeController.MaxHealth * _value);
+                player.PlayerLifeController.AddHp(healAmount);
+                CombatManager.Instance.ApplyHealAPPenalty();
+                break;
+
+            case AbilityType.BonusVsStatus:
+                CombatManager.Instance.ActivateBonusVsStatus(_value);
+                break;
+        }
     }
 }

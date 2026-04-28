@@ -17,6 +17,8 @@ public class InputHandler : MonoBehaviour
         MoveInput = new Vector3(horizontal, 0f, vertical);
         IsMovementPressed = MoveInput.magnitude > 0.1f;
 
+
         IsJumpPressed = Input.GetButtonDown("Jump");
     }
+
 }

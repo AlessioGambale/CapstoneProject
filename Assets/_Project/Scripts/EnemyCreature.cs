@@ -1,18 +1,20 @@
+using UnityEngine;
+
 public class EnemyCreature : Creature
 {
-    public override void Die()
+    private void Start()
     {
-
+        CombatManager.Instance.RegisterEnemy(this);
     }
+
     public override void Hit(float damage)
     {
         base.Hit(damage);
     }
 
-    void Start()
+    public override void Die()
     {
-        base.Awake();
+        Debug.Log("Enemy morto");
     }
-
 }
 

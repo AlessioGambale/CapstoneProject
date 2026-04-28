@@ -11,39 +11,24 @@ public class PlayerCreature : Creature
     [SerializeField] private InputHandler _input;
     [SerializeField] private GroundCheck _groundCheck;
 
-    private bool _isJumping = false;
-
-    private AnimationParamHandler _paramHandler; 
     private Rigidbody _rb;
+    AnimationParamHandler _paramHandler;
+    public LifeController PlayerLifeController => LifeController;
 
-    private void OnEnable()
-    {
-        _groundCheck.OnIsGroundedChange += HandleJump;
-    }
     protected override void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _paramHandler = GetComponent<AnimationParamHandler>();  
+        _paramHandler = GetComponent<AnimationParamHandler>();
         if (_input == null) _input = GetComponent<InputHandler>();
         base.Awake();
-        
-
-    }
-    private void OnTriggerEnter()
-    { 
-        //CombatManager.Instance.RegisterPlayer(this);
     }
 
-    void FixedUpdate()
-    {
-        Move();
 
-    }
+    private void FixedUpdate() => Move();
     private void Update()
     {
         _paramHandler.SetForward(_input.MoveInput.magnitude);
         Jump();
-
     }
 
     private void Move()
@@ -59,47 +44,35 @@ public class PlayerCreature : Creature
 
         Quaternion targetRotation = Quaternion.LookRotation(moveDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime);
+
+       
     }
 
     private void Jump()
     {
-        if (_input.IsJumpPressed && _groundCheck.IsGrounded && !_isJumping)
+        if (_input.IsJumpPressed && _groundCheck.IsGrounded)
         {
-            _isJumping = true;  
-            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); 
+            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-            _paramHandler.Jump();
         }
-    }
-    
-    public void HandleJump(bool IsGrounded)
-    {
-        if (IsGrounded)
-        {
-            _isJumping = false;
-           _paramHandler.ResetJump();
-        }
-        _paramHandler.SetIsGrounded(IsGrounded);
     }
 
     public override void Hit(float damage)
     {
-        if (LifeController == null)
+        if (CombatManager.Instance.IsShieldActive)
         {
-            Debug.Log("lifc Null sul player");
+            damage *= 0.5f;
+            CombatManager.Instance.ConsumeShield();
+            Debug.Log($"[Player] Scudo attivo — danno ridotto a {damage}");
         }
+
         float finalDamage = LifeController.IsHpCritical ? damage * 1.5f : damage;
+
         base.Hit(finalDamage);
     }
 
     public override void Die()
     {
-        _paramHandler.Death();   
+        Debug.Log("Player morto");
     }
-
-    private void OnDisable()
-    {
-        _groundCheck.OnIsGroundedChange -= HandleJump;
-    }
-
 }

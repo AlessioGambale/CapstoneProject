@@ -25,10 +25,9 @@ public class LifeController : MonoBehaviour
 
     public void RestoreFullHp() => SetHp(_maxHealth);
 
-    public void TakeDamage(float damage, float defensePercent = 0f)
+    public void TakeDamage(float damage)
     {
-        float finalDamage = damage * (1f - Mathf.Clamp01(defensePercent));
-        finalDamage = Mathf.Max(1f, finalDamage);
+        float finalDamage = Mathf.Max(1f, damage);
         SetHp((int)(_currentHealth - finalDamage));
     }
 
@@ -39,14 +38,18 @@ public class LifeController : MonoBehaviour
     private void SetHp(int hp)
     {
         hp = Mathf.Clamp(hp, 0, _maxHealth);
+
         if (hp != _currentHealth)
         {
             _currentHealth = hp;
+
             Debug.Log($"[Life] {gameObject.name} HP: {_currentHealth}/{_maxHealth}");
+
             _onHealthChange?.Invoke(_currentHealth, _maxHealth);
+
             if (_currentHealth <= 0)
             {
-                Debug.Log($"[Life] {gameObject.name} è schiattattt");
+                Debug.Log($"[Life] {gameObject.name} è morto");
                 _onDeath?.Invoke();
             }
         }

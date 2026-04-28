@@ -16,12 +16,12 @@ public class EnemyAI : MonoBehaviour
     [Header("Soglia HP Player")]
     [SerializeField] private float _playerKillThreshold = 0.3f;
 
-    [Header("Pesi Attacco (per soglia nemico)")]
+    [Header("Pesi Attacco")]
     [SerializeField] private int _attackWeightHigh = 100;
     [SerializeField] private int _attackWeightMid = 70;
     [SerializeField] private int _attackWeightLow = 20;
 
-    [Header("Pesi Cura (per soglia nemico)")]
+    [Header("Pesi Cura")]
     [SerializeField] private int _healWeightHigh = 0;
     [SerializeField] private int _healWeightMid = 30;
     [SerializeField] private int _healWeightLow = 80;
@@ -45,6 +45,14 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator TurnRoutine(PlayerCreature player, Action onFinished)
     {
         yield return new WaitForSeconds(_actionDelay);
+
+        StatusController status = _enemy.GetComponent<StatusController>();
+        if (status != null && status.ActiveStatus == StatusType.Stun)
+        {
+            Debug.Log($"[EnemyAI] {_enemy.name} è stunnato — salta il turno");
+            onFinished?.Invoke();
+            yield break;
+        }
 
         EnemyActionType action = PickAction(player);
         Debug.Log($"[EnemyAI] {_enemy.name} sceglie: {action}");
@@ -113,14 +121,31 @@ public class EnemyAI : MonoBehaviour
 
         int roll = UnityEngine.Random.Range(0, attackWeight + healWeight);
         Debug.Log($"[EnemyAI] Roll: {roll} su {attackWeight + healWeight} (attacco:{attackWeight} cura:{healWeight})");
-
         return roll < attackWeight ? EnemyActionType.Attack : EnemyActionType.Heal;
     }
 
     private void ExecuteAttack(PlayerCreature player)
     {
+        StatusController status = _enemy.GetComponent<StatusController>();
+
+        if (status != null && status.ActiveStatus == StatusType.Panic)
+        {
+            EnemyCreature ally = CombatManager.Instance.GetRandomAlly(_enemy);
+            if (ally != null)
+            {
+                float roll = UnityEngine.Random.Range(0f, 1f);
+                if (roll < 0.5f)
+                {
+                    Debug.Log($"[EnemyAI] {_enemy.name} in PANIC — attacca alleato {ally.name}");
+                    ally.Hit(_enemy.Stats.Attack);
+                    return;
+                }
+            }
+        }
+
         float damage = _enemy.Stats.Attack;
-        Debug.Log($"[EnemyAI] {_enemy.name} attacca il player per {damage} danni");
+        Debug.Log($"[EnemyAI] {_enemy.name} attacca il player per {damage}");
+
         player.Hit(damage);
     }
 

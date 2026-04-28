@@ -17,6 +17,7 @@ public class AnimationParamHandler : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
     }
+
     public void SetForward(float speed)
     {
         _animator.SetFloat(_forwardName, speed);
