@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,9 +8,8 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int _maxHealth = 90;
     [SerializeField] private int _currentHealth;
 
-    [Header("Events")]
-    [SerializeField] private UnityEvent _onDeath;
-    [SerializeField] private UnityEvent<int, int> _onHealthChange;
+    public event Action<int, int> OnHealthChange;
+    public event Action OnDeath;
 
     public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
@@ -21,9 +21,15 @@ public class LifeController : MonoBehaviour
         SetHp(_maxHealth);
     }
 
-    public void SetMaxHealth(int maxHealth) => _maxHealth = Mathf.Max(1, maxHealth);
+    public void SetMaxHealth(int maxHealth)
+    {
+        _maxHealth = Mathf.Max(1, maxHealth);
+    }
 
-    public void RestoreFullHp() => SetHp(_maxHealth);
+    public void RestoreFullHp()
+    {
+        SetHp(_maxHealth);
+    }
 
     public void TakeDamage(float damage)
     {
@@ -31,27 +37,32 @@ public class LifeController : MonoBehaviour
         SetHp((int)(_currentHealth - finalDamage));
     }
 
-    public void AddHp(int amount) => SetHp(_currentHealth + amount);
+    public void AddHp(int amount)
+    {
+        SetHp(_currentHealth + amount);
+    }
 
-    public void ForceSetHp(int hp) => SetHp(hp);
+    public void ForceSetHp(int hp)
+    {
+        SetHp(hp);
+    }
 
     private void SetHp(int hp)
     {
         hp = Mathf.Clamp(hp, 0, _maxHealth);
 
-        if (hp != _currentHealth)
+        if (hp == _currentHealth) return;
+
+        _currentHealth = hp;
+
+        Debug.Log("[Life] " + gameObject.name + " HP: " + _currentHealth + "/" + _maxHealth);
+
+        OnHealthChange?.Invoke(_currentHealth, _maxHealth);
+
+        if (_currentHealth <= 0)
         {
-            _currentHealth = hp;
-
-            Debug.Log($"[Life] {gameObject.name} HP: {_currentHealth}/{_maxHealth}");
-
-            _onHealthChange?.Invoke(_currentHealth, _maxHealth);
-
-            if (_currentHealth <= 0)
-            {
-                Debug.Log($"[Life] {gameObject.name} è morto");
-                _onDeath?.Invoke();
-            }
+            Debug.Log("[Life] " + gameObject.name + " morto");
+            OnDeath?.Invoke();
         }
     }
 }

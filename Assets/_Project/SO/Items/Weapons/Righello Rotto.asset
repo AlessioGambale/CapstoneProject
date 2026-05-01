@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Righello Rotto
   m_EditorClassIdentifier: 
-  _name: Righello Rotto
-  _description: 
-  _icon: {fileID: 0}
   _id: 0
-  _baseDamage: 0
+  _name: The Ruler
+  _icon: {fileID: 0}
+  _description: A rigid ruler. Drives enemies into a panic frenzy
+  _buyPrice: 0
+  _sellPrice: 0
+  _isStackable: 0
+  _isConsumable: 0
+  _baseDamage: 7
   _statusType: 4
-  _statusBuildUp: 0
+  _statusBuildUp: 20
   _specialType: 4
-  _specialDamageMultiplier: 0
-  _ignoresDefence: 0
-  _isAOE: 0
+  _specialDamageMultiplier: 1
   _baseAttackAPCost: 1
   _specialAttackAPCost: 2

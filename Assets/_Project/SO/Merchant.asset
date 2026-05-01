@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18272a3f0e1b6c4899eed7da7ef29cd, type: 3}
+  m_Name: Merchant
+  m_EditorClassIdentifier: 
+  _name: OLD DOLL MERCH
+  _itemsToSell:
+  - {fileID: 11400000, guid: 65cf2d5d4dccc6c44808ef9c83121f19, type: 2}
+  - {fileID: 11400000, guid: 739f48bbce4eb7e429736e3f584736a1, type: 2}
+  - {fileID: 11400000, guid: bba46cff50ec3fc49812e35616934d34, type: 2}
+  - {fileID: 11400000, guid: 0b700360f9c111442b80461b04a12500, type: 2}
+  - {fileID: 11400000, guid: 39127bd2451171b419ba6da5e1d4a532, type: 2}
+  - {fileID: 11400000, guid: d9b4af4f464d41243ab180262e1e8546, type: 2}
+  - {fileID: 11400000, guid: 81638d5f42bbafc49ada3abfa33323e1, type: 2}
+  - {fileID: 11400000, guid: cb37bc43aba737546b3d4a43e59f3031, type: 2}
+  - {fileID: 11400000, guid: 41243d60aa0ea0e43a0e15720450e88a, type: 2}
+  - {fileID: 11400000, guid: 950fc1da0b36cf34f81d85396ee720e3, type: 2}

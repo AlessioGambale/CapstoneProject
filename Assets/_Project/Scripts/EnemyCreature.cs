@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class EnemyCreature : Creature
 {
-    private void Start()
+    private void OnMouseDown()
     {
-        CombatManager.Instance.RegisterEnemy(this);
+        Debug.Log($"[Enemy] Cliccato: {gameObject.name}");
+        CombatManager.Instance.SelectTarget(this);
     }
 
     public override void Hit(float damage)

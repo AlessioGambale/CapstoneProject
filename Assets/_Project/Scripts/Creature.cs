@@ -27,6 +27,12 @@ public abstract class Creature : MonoBehaviour
         LifeController.TakeDamage(finalDamage);
     }
 
+    public virtual void Hit(float damage, float defencePercent)
+    {
+        float finalDamage = damage * (1f - Mathf.Clamp01(defencePercent));
+        LifeController.TakeDamage(finalDamage);
+    }
+
     public void TakeDamageRaw(float damage)
     {
         LifeController.TakeDamage(damage);

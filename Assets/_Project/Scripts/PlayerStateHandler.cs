@@ -35,9 +35,12 @@ public class PlayerStateHandler : MonoBehaviour
     public void EnterCombat()
     {
         if (IsInCombat) return;
+        Debug.Log($"[PSH] EnterCombat — _playerCreature: {_playerCreature}");
         IsInCombat = true;
         _playerCreature.enabled = false;
         _input.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         CombatManager.Instance.OnCombatVictory += HandleVictory;
         CombatManager.Instance.OnCombatDefeat += HandleDefeat;
@@ -52,6 +55,8 @@ public class PlayerStateHandler : MonoBehaviour
         IsInCombat = false;
         _playerCreature.enabled = true;
         _input.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         CombatManager.Instance.OnCombatVictory -= HandleVictory;
         CombatManager.Instance.OnCombatDefeat -= HandleDefeat;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,11 +43,10 @@ public class UI_MerchantWindow : MonoBehaviour
     public void OnBuyClicked()
     {
         if (_selectedItem == null) return;
-
         if (CoinManager.Instance.Coins >= _selectedItem.BuyPrice)
         {
             CoinManager.Instance.Spend(_selectedItem.BuyPrice);
-            GameInstance.Instance.Inventory.AddItem(_selectedItem);
+            InventoryManager.Instance.AddItem(_selectedItem);
             RefreshUI();
         }
     }
@@ -58,11 +55,9 @@ public class UI_MerchantWindow : MonoBehaviour
     {
         if (_selectedItem == null) return;
         bool canBuy = CoinManager.Instance.Coins >= _selectedItem.BuyPrice;
-        bool canSell = GameInstance.Instance.Inventory.HasItem(_selectedItem);
-
+        bool canSell = InventoryManager.Instance.HasItem(_selectedItem);
         _buyButton.interactable = canBuy;
         _sellButton.interactable = canSell;
-
         _itemNameText.SetText(_selectedItem.Name);
         _itemSellPriceText.SetText(_selectedItem.SellPrice.ToString());
         _itemBuyPriceText.SetText(_selectedItem.BuyPrice.ToString());

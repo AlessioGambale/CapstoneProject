@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CombatManager : GenericSingleton<CombatManager>
+class CombatManager : GenericSingleton<CombatManager>
 {
+    [SerializeField] private GameObject _combatHUD;
+
     private PlayerCreature _player;
     private List<EnemyCreature> _enemies = new List<EnemyCreature>();
 
     public event Action OnCombatStarted;
     public event Action OnCombatVictory;
     public event Action OnCombatDefeat;
-
+   
 
     public bool IsShieldActive { get; private set; }
     public bool IsCritActive { get; private set; }
     public bool IsDesperationActive { get; private set; }
     public bool IsBonusVsStatusActive { get; private set; }
+    public PlayerCreature Player => _player;
+    public List<EnemyCreature> Enemies => _enemies;
+
 
     private float _desperationMultiplier = 1f;
     private float _bonusVsStatusMultiplier = 1f;
     private int _healAPPenalty = 0;
+
+    public bool isTargeting;
+    private System.Action<EnemyCreature> _onTargetSelected;
 
     public void RegisterPlayer(PlayerCreature player)
     {
@@ -36,6 +44,9 @@ public class CombatManager : GenericSingleton<CombatManager>
 
     private void TryStartCombat()
     {
+        if (_combatHUD != null)
+            _combatHUD.SetActive(true);
+
         Debug.Log($"TryStartCombat — player: {_player}, nemici: {_enemies.Count}");
         if (_player == null || _enemies.Count == 0) return;
         Debug.Log("Combat avviato");
@@ -50,16 +61,30 @@ public class CombatManager : GenericSingleton<CombatManager>
         OnCombatStarted?.Invoke();
     }
 
+    public void StartTargeting(System.Action<EnemyCreature> onSelected)
+    {
+        isTargeting = true;
+        _onTargetSelected = onSelected;
+    }
+
+    public void SelectTarget(EnemyCreature target)
+    {
+        if (!isTargeting) return;
+        isTargeting = false;
+        _onTargetSelected?.Invoke(target);
+    }
+
     public void EndCombat()
     {
         TurnManager.Instance.OnTurnCycleFinished -= CheckCombatEnd;
         TurnManager.Instance.OnEnemyTurnStarted -= HandleEnemyTurn;
+
+        if (_combatHUD != null)
+            _combatHUD.SetActive(false);
+
         _enemies.Clear();
         _player = null;
     }
-
-
-
 
     public void ActivateShield() => IsShieldActive = true;
     public void ConsumeShield() => IsShieldActive = false;
@@ -86,10 +111,6 @@ public class CombatManager : GenericSingleton<CombatManager>
         return penalty;
     }
 
-
-
-
-
     public void ExecuteBaseAttack(EnemyCreature target)
     {
         SO_Weapon weapon = InventoryManager.Instance.CurrentWeapon;
@@ -97,7 +118,15 @@ public class CombatManager : GenericSingleton<CombatManager>
         if (!TurnManager.Instance.TrySpendAP(weapon.BaseAttackAPCost)) return;
 
         float damage = CalculateDamage(_player.Stats.Attack, weapon.BaseDamage, target);
-        ExecuteHit(target, damage, weapon.StatusBuildUp, weapon.StatusType);
+
+        ExecuteHit(target, damage, weapon.StatusBuildUp, weapon.StatusType, false);
+
+        int speedRoll = UnityEngine.Random.Range(0, 100);
+        if (speedRoll < _player.Stats.Speed)
+        {
+            TurnManager.Instance.RestoreAP(1);
+            Debug.Log($"[Speed] AP recuperato! ({_player.Stats.Speed}% chance)");
+        }
     }
 
     public void ExecuteSpecialAttack(EnemyCreature target)
@@ -106,12 +135,55 @@ public class CombatManager : GenericSingleton<CombatManager>
         if (weapon == null) return;
         if (!TurnManager.Instance.TrySpendAP(weapon.SpecialAttackAPCost)) return;
 
-        float damage = CalculateDamage(_player.Stats.Attack, weapon.BaseDamage, target)
-                       * weapon.SpecialDamageMultiplier;
-        ExecuteHit(target, damage, weapon.StatusBuildUp * 2f, weapon.StatusType);
+        float damage = CalculateDamage(_player.Stats.Attack, weapon.BaseDamage, target);
+        float buildUp = weapon.StatusBuildUp * 2f;
+
+        switch (weapon.SpecialType)
+        {
+            case SpecialAttackType.HeavyHit:
+                damage *= weapon.SpecialDamageMultiplier;
+                break;
+
+            case SpecialAttackType.IgnoreDefense:
+                ExecuteHit(target, damage, buildUp, weapon.StatusType, true);
+                return;
+
+            case SpecialAttackType.AOE:
+                foreach (var enemy in _enemies)
+                {
+                    if (!enemy.IsDead)
+                        ExecuteHit(enemy, damage, buildUp, weapon.StatusType, false);
+                }
+                return;
+
+            case SpecialAttackType.ApplyPanic:
+                StatusController status = target.GetComponent<StatusController>();
+                if (status != null)
+                {
+                    status.AddBuildup(StatusType.Panic, 100f);
+                }
+                break;
+
+            case SpecialAttackType.Execute:
+                float hpPercent = (float)target.LifeController.CurrentHealth / target.LifeController.MaxHealth;
+                if (hpPercent < 0.3f)
+                {
+                    damage *= weapon.SpecialDamageMultiplier;
+                }
+                break;
+        }
+
+        ExecuteHit(target, damage, buildUp, weapon.StatusType, false);
+
+        int speedRoll = UnityEngine.Random.Range(0, 100);
+        if (speedRoll < _player.Stats.Speed)
+        {
+            TurnManager.Instance.RestoreAP(1);
+            Debug.Log($"[Speed] AP recuperato! ({_player.Stats.Speed}% chance)");
+        }
     }
 
-    public void ExecuteAbility(EnemyCreature target)
+    public void ExecuteAbility()
     {
         SO_Ability ability = InventoryManager.Instance.CurrentAbility;
         if (ability == null) return;
@@ -119,23 +191,18 @@ public class CombatManager : GenericSingleton<CombatManager>
         ability.Use(_player.gameObject);
     }
 
-    private void ExecuteHit(EnemyCreature target, float damage, float buildUp, StatusType statusType)
+    public void ExecuteHit(EnemyCreature target, float damage, float buildUp, StatusType statusType, bool ignoreDefence = false)
     {
         StatusController status = target.GetComponent<StatusController>();
         bool isFractured = status != null && status.ActiveStatus == StatusType.Fracture;
 
-        float finalDamage = isFractured ? damage * 1.25f : damage;
-
-        Debug.Log($"[CombatManager] {_player.CreatureName} attacca {target.CreatureName} per {finalDamage}");
-
-        target.Hit(finalDamage);
+        if (ignoreDefence || isFractured)
+            target.Hit(damage, 0f);
+        else
+            target.Hit(damage);
 
         ApplyStatusBuildup(target, buildUp, statusType);
     }
-
-
-
-
 
     private void HandleEnemyTurn()
     {
@@ -160,60 +227,64 @@ public class CombatManager : GenericSingleton<CombatManager>
     private void ExecuteEnemyFallback(EnemyCreature enemy)
     {
         float damage = CalculateDamage(enemy.Stats.Attack, enemy.Stats.Attack);
+        Debug.Log($"[CombatManager] Fallback — {enemy.name} attacca per {damage}");
         _player.Hit(damage);
-
         TurnManager.Instance.NotifyEnemyTurnFinished();
     }
-
-    public EnemyCreature GetRandomAlly(EnemyCreature self)
-    {
-        List<EnemyCreature> allies = _enemies.FindAll(e => e != self && !e.IsDead);
-        if (allies.Count == 0) return null;
-        return allies[UnityEngine.Random.Range(0, allies.Count)];
-    }
-
-   
-
-
 
     private float CalculateDamage(int attack, int weaponDamage, EnemyCreature target = null)
     {
         float damage = attack + weaponDamage;
+        Debug.Log($"[Damage] Base: {damage}");
 
         if (IsCritActive)
         {
             damage *= 2f;
             IsCritActive = false;
-            Debug.Log($"[CombatManager] CRITICO — danno: {damage}");
+            Debug.Log($"[Damage] Dopo Crit: {damage}");
         }
 
         if (IsDesperationActive)
         {
             damage *= _desperationMultiplier;
             IsDesperationActive = false;
-            Debug.Log($"[CombatManager] Disperazione — danno: {damage}");
+            Debug.Log($"[Damage] Dopo Desperation ({_desperationMultiplier}x): {damage}");
+        }
+
+        if (_player.LifeController.IsHpCritical)
+        {
+            damage *= 1.5f;
+            Debug.Log($"[Damage] Dopo Passiva critica (HP={_player.LifeController.CurrentHealth}/{_player.LifeController.MaxHealth}): {damage}");
         }
 
         if (target != null)
         {
             StatusController status = target.GetComponent<StatusController>();
-            if (status != null)
-            {
-                if (status.ActiveStatus == StatusType.Weakness)
-                {
-                    damage *= 1.25f;
-                    Debug.Log($"[CombatManager] Weakness — danno: {damage}");
-                }
 
-                if (IsBonusVsStatusActive && status.HasStatus)
+            if (status != null && status.ActiveStatus == StatusType.Weakness)
+            {
+                damage *= 1.25f;
+                Debug.Log($"[Damage] Dopo Weakness: {damage}");
+            }
+
+            if (IsBonusVsStatusActive)
+            {
+                if (status != null && status.HasStatus)
                 {
                     damage *= _bonusVsStatusMultiplier;
-                    IsBonusVsStatusActive = false;
-                    Debug.Log($"[CombatManager] BonusVsStatus — danno: {damage}");
+                    Debug.Log($"[Damage] Dopo BonusVsStatus ({_bonusVsStatusMultiplier}x): {damage}");
                 }
+                IsBonusVsStatusActive = false;
             }
         }
 
+        int luckRoll = UnityEngine.Random.Range (0, 100);
+        if (luckRoll < _player.Stats.Luck)
+        {
+            damage *= 2f;
+            Debug.Log($"[Damage] Luck crit! ({_player.Stats.Luck}% chance): {damage}");
+        }
+        Debug.Log($"[Damage] TOTALE: {damage}");
         return damage;
     }
 
@@ -223,9 +294,12 @@ public class CombatManager : GenericSingleton<CombatManager>
         target.GetComponent<StatusController>()?.AddBuildup(type, amount);
     }
 
-    
-
-
+    public EnemyCreature GetRandomAlly(EnemyCreature self)
+    {
+        List<EnemyCreature> allies = _enemies.FindAll(e => e != self && !e.IsDead);
+        if (allies.Count == 0) return null;
+        return allies[UnityEngine.Random.Range(0, allies.Count)];
+    }
 
     private void CheckCombatEnd()
     {

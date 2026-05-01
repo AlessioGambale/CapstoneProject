@@ -7,12 +7,13 @@ using UnityEngine;
 public class InventoryManager : GenericSingleton<InventoryManager>
 {
     [SerializeField] private GameObject _player;
-    [SerializeField] private List<SO_GenericItem> _inventory;
-    [SerializeField] private int _maxSlots;
+    [SerializeField] private int _maxSlots = 6;
+    [SerializeField] private List<SO_GenericItem> _inventory = new List<SO_GenericItem>();
 
     private KeyCode[] _keyCodes;
 
     public event Action OnInventoryChange;
+    protected override bool ShouldBeDestroyedOnLoad => false;
 
     public int SlotCount => _inventory.Count;
     public SO_Weapon CurrentWeapon => _inventory.OfType<SO_Weapon>().FirstOrDefault();
@@ -21,11 +22,6 @@ public class InventoryManager : GenericSingleton<InventoryManager>
     protected override void Awake()
     {
         base.Awake();
-        KeyCodeMap();
-    }
-
-    private void KeyCodeMap()
-    {
         _keyCodes = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6 };
     }
 
@@ -34,18 +30,18 @@ public class InventoryManager : GenericSingleton<InventoryManager>
         for (int i = 0; i < _keyCodes.Length; i++)
         {
             if (i >= _inventory.Count) break;
-            if (_inventory[i] != null && Input.GetKeyDown(_keyCodes[i]))
-            {
+            if (Input.GetKeyDown(_keyCodes[i]))
                 TryToUse(i);
-            }
         }
     }
 
-    public void TryToUse(int itemIndex)
+    public void TryToUse(int index)
     {
-        if (itemIndex < 0 || itemIndex >= _inventory.Count) return;
-        if (_inventory[itemIndex] == null) return;
-        _inventory[itemIndex].Use(_player);
+        if (index < 0 || index >= _inventory.Count) return;
+        if (_inventory[index] == null) return;
+        _inventory[index].Use(_player);
+        if (_inventory[index].IsConsumable)
+            RemoveItem(index);
         OnInventoryChange?.Invoke();
     }
 
@@ -58,9 +54,7 @@ public class InventoryManager : GenericSingleton<InventoryManager>
     public int FindItem(SO_GenericItem item)
     {
         for (int i = 0; i < _inventory.Count; i++)
-        {
             if (_inventory[i] == item) return i;
-        }
         return -1;
     }
 
@@ -79,6 +73,14 @@ public class InventoryManager : GenericSingleton<InventoryManager>
     {
         if (index < 0 || index >= _inventory.Count) return;
         _inventory.RemoveAt(index);
+        OnInventoryChange?.Invoke();
+    }
+
+    public IEnumerable<SO_GenericItem> GetAllItems() => _inventory;
+
+    public void ClearInventory()
+    {
+        _inventory.Clear();
         OnInventoryChange?.Invoke();
     }
 }

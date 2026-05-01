@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Spiral Candy Stick
   m_EditorClassIdentifier: 
-  _name: Spiral Candy Stick
-  _description: 
-  _icon: {fileID: 0}
   _id: 0
-  _baseDamage: 20
+  _name: Sugar Spiral
+  _icon: {fileID: 0}
+  _description: A sweet spinning rod. Stuns enemies with its hypnotic color
+  _buyPrice: 0
+  _sellPrice: 0
+  _isStackable: 0
+  _isConsumable: 0
+  _baseDamage: 6
   _statusType: 3
-  _statusBuildUp: 0
+  _statusBuildUp: 30
   _specialType: 3
   _specialDamageMultiplier: 1.2
-  _ignoresDefence: 0
-  _isAOE: 0
   _baseAttackAPCost: 1
   _specialAttackAPCost: 2

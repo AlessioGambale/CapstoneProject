@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Forbici Arrotondate
   m_EditorClassIdentifier: 
-  _name: Forbici Arrotondate
-  _description: 
-  _icon: {fileID: 0}
   _id: 0
-  _baseDamage: 0
+  _name: Iron Shears
+  _icon: {fileID: 0}
+  _description: Sharp scissors. Shatters defences and executes the weak
+  _buyPrice: 0
+  _sellPrice: 0
+  _isStackable: 0
+  _isConsumable: 0
+  _baseDamage: 11
   _statusType: 5
-  _statusBuildUp: 0
+  _statusBuildUp: 20
   _specialType: 5
-  _specialDamageMultiplier: 0
-  _ignoresDefence: 0
-  _isAOE: 0
+  _specialDamageMultiplier: 2
   _baseAttackAPCost: 1
   _specialAttackAPCost: 2

@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviour
 
     public void ExecuteTurn(PlayerCreature player, Action onFinished)
     {
-        Debug.Log($"[EnemyAI] {_enemy.name} inizia il turno — attende {_actionDelay}s");
+        Debug.Log("EnemyAI start turn " + _enemy.name);
         StartCoroutine(TurnRoutine(player, onFinished));
     }
 
@@ -47,15 +47,15 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(_actionDelay);
 
         StatusController status = _enemy.GetComponent<StatusController>();
-        if (status != null && status.ActiveStatus == StatusType.Stun)
+        if (status != null && status.IsStunned())
         {
-            Debug.Log($"[EnemyAI] {_enemy.name} è stunnato — salta il turno");
+            Debug.Log("EnemyAI stunned skip turn " + _enemy.name);
             onFinished?.Invoke();
             yield break;
         }
 
         EnemyActionType action = PickAction(player);
-        Debug.Log($"[EnemyAI] {_enemy.name} sceglie: {action}");
+        Debug.Log("EnemyAI action " + action);
 
         switch (action)
         {
@@ -67,7 +67,6 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"[EnemyAI] {_enemy.name} turno finito");
         onFinished?.Invoke();
     }
 
@@ -76,17 +75,13 @@ public class EnemyAI : MonoBehaviour
         float enemyHpPercent = (float)_enemy.LifeController.CurrentHealth / _enemy.LifeController.MaxHealth;
         float playerHpPercent = (float)player.LifeController.CurrentHealth / player.LifeController.MaxHealth;
 
-        Debug.Log($"[EnemyAI] {_enemy.name} HP: {enemyHpPercent:P0} — Player HP: {playerHpPercent:P0}");
-
         if (playerHpPercent <= _playerKillThreshold)
         {
-            Debug.Log("[EnemyAI] Player in fin di vita = attacca");
             return EnemyActionType.Attack;
         }
 
         if (_enemy.LifeController.CurrentHealth >= _enemy.LifeController.MaxHealth)
         {
-            Debug.Log("[EnemyAI] HP pieni = attacca");
             return EnemyActionType.Attack;
         }
 
@@ -109,18 +104,15 @@ public class EnemyAI : MonoBehaviour
             {
                 attackWeight = 60;
                 healWeight = 40;
-                Debug.Log("[EnemyAI] HP bassi ma player meta vita = aggressivo");
             }
             else
             {
                 attackWeight = _attackWeightLow;
                 healWeight = _healWeightLow;
-                Debug.Log("[EnemyAI] HP bassi = preferisce curarsi");
             }
         }
 
         int roll = UnityEngine.Random.Range(0, attackWeight + healWeight);
-        Debug.Log($"[EnemyAI] Roll: {roll} su {attackWeight + healWeight} (attacco:{attackWeight} cura:{healWeight})");
         return roll < attackWeight ? EnemyActionType.Attack : EnemyActionType.Heal;
     }
 
@@ -128,7 +120,7 @@ public class EnemyAI : MonoBehaviour
     {
         StatusController status = _enemy.GetComponent<StatusController>();
 
-        if (status != null && status.ActiveStatus == StatusType.Panic)
+        if (status != null && status.IsPanicked())
         {
             EnemyCreature ally = CombatManager.Instance.GetRandomAlly(_enemy);
             if (ally != null)
@@ -136,7 +128,7 @@ public class EnemyAI : MonoBehaviour
                 float roll = UnityEngine.Random.Range(0f, 1f);
                 if (roll < 0.5f)
                 {
-                    Debug.Log($"[EnemyAI] {_enemy.name} in PANIC — attacca alleato {ally.name}");
+                    Debug.Log("EnemyAI panic attack ally " + ally.name);
                     ally.Hit(_enemy.Stats.Attack);
                     return;
                 }
@@ -144,15 +136,14 @@ public class EnemyAI : MonoBehaviour
         }
 
         float damage = _enemy.Stats.Attack;
-        Debug.Log($"[EnemyAI] {_enemy.name} attacca il player per {damage}");
-
+        Debug.Log("EnemyAI attack player damage " + damage);
         player.Hit(damage);
     }
 
     private void ExecuteHeal()
     {
         float healAmount = _enemy.LifeController.MaxHealth * _healPercent;
-        Debug.Log($"[EnemyAI] {_enemy.name} si cura di {(int)healAmount} HP");
+        Debug.Log("EnemyAI heal " + (int)healAmount);
         _enemy.LifeController.AddHp((int)healAmount);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class StatusController : MonoBehaviour
 {
+    [SerializeField] private float _bleedPercent = 0.08f;
+
     private float _buildupValue;
     private float _buildupThreshold = 100f;
     private StatusType _activeStatus = StatusType.None;
@@ -54,13 +56,25 @@ public class StatusController : MonoBehaviour
         }
     }
 
+    public bool IsStunned()
+    {
+        return _activeStatus == StatusType.Stun;
+    }
+
+    public bool IsPanicked()
+    {
+        return _activeStatus == StatusType.Panic;
+    }
+
     private void ApplyStatusEffect()
     {
         switch (_activeStatus)
         {
             case StatusType.Bleeding:
-                GetComponent<Creature>().TakeDamageRaw(10f);
-                Debug.Log($"[Status] {gameObject.name} — Bleeding: -10 HP");
+                Creature creature = GetComponent<Creature>();
+                float bleedDamage = creature.LifeController.MaxHealth * _bleedPercent;
+                creature.TakeDamageRaw(bleedDamage);
+                Debug.Log($"[Status] {gameObject.name} — Bleeding: -{bleedDamage} HP");
                 break;
             case StatusType.Weakness:
             case StatusType.Stun:

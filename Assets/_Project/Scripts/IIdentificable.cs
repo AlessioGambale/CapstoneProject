@@ -7,7 +7,7 @@ public enum ObjectID
     SO_BIGPOTION = 0,
     SO_BIGSWORD = 1,
     SO_TELEPORT = 2,
-    SO_GOLDKEY = 3,
+    SO_SCREWDRIVER = 3,
 
     NONE = 100,
 }

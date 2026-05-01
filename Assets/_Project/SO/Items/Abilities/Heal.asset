@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d52ab8861e628e428717effad00a29b, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  _name: 
-  _description: 
-  _icon: {fileID: 0}
   _id: 0
+  _name: Heal
+  _icon: {fileID: 0}
+  _description: Restore 25% HP. Next turn -1 AP
+  _buyPrice: 0
+  _sellPrice: 0
+  _isStackable: 0
+  _isConsumable: 0
   _abilityType: 4
-  _value: 0
-  _apCost: 0
+  _value: 0.25
+  _apCost: 1
   _duration: 0

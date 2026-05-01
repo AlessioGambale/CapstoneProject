@@ -79,18 +79,15 @@ public class TurnManager : GenericSingleton<TurnManager>
         foreach (var enemy in _enemies)
         {
             if (enemy.IsDead) continue;
-
             CurrentEnemy = enemy;
             _enemyTurnFinished = false;
             Debug.Log($"[Turn] Turno nemico — {enemy.CreatureName}");
             OnEnemyTurnStarted?.Invoke();
-
             yield return new WaitUntil(() => _enemyTurnFinished || enemy.IsDead);
-
             enemy.GetComponent<StatusController>()?.OnTurnEnd();
         }
-
         CurrentEnemy = null;
         OnTurnCycleFinished?.Invoke();
+        StartPlayerTurn(); 
     }
 }

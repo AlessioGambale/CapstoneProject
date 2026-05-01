@@ -13,19 +13,17 @@ MonoBehaviour:
   m_Name: Ago da Cucito
   m_EditorClassIdentifier: 
   _id: 0
-  _name: Ago da Cucito
+  _name: The Needle
   _icon: {fileID: 0}
-  _description: 
+  _description: A sharp needle. Pierces defence and makes enemies bleed
   _buyPrice: 0
   _sellPrice: 0
-  _isStackable: 1
+  _isStackable: 0
   _isConsumable: 0
-  _baseDamage: 0
+  _baseDamage: 8
   _statusType: 2
-  _statusBuildUp: 0
+  _statusBuildUp: 25
   _specialType: 2
-  _specialDamageMultiplier: 0
-  _ignoresDefence: 0
-  _isAOE: 0
+  _specialDamageMultiplier: 1
   _baseAttackAPCost: 1
   _specialAttackAPCost: 2
