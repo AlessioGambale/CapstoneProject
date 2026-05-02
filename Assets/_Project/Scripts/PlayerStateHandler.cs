@@ -17,14 +17,10 @@ public class PlayerStateHandler : MonoBehaviour
         if (_input == null) _input = GetComponent<InputHandler>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void HandleVictory()
     {
-        GetComponent<PlayerToExplorationTransition>().TriggerTransition = true;
+        ExitCombat();
+        GetComponentInChildren<PlayerToExplorationTransition>()?.Trigger();
     }
 
     private void HandleDefeat()
@@ -34,18 +30,15 @@ public class PlayerStateHandler : MonoBehaviour
 
     public void EnterCombat()
     {
+        Debug.Log($"EnterCombat — IsInCombat: {IsInCombat}, input enabled: {_input.enabled}, creature enabled: {_playerCreature.enabled}");
         if (IsInCombat) return;
-        Debug.Log($"[PSH] EnterCombat — _playerCreature: {_playerCreature}");
         IsInCombat = true;
         _playerCreature.enabled = false;
         _input.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         CombatManager.Instance.OnCombatVictory += HandleVictory;
         CombatManager.Instance.OnCombatDefeat += HandleDefeat;
-
-        CombatManager.Instance.RegisterPlayer(_playerCreature);
         OnCombatEnter?.Invoke();
     }
 
@@ -57,10 +50,24 @@ public class PlayerStateHandler : MonoBehaviour
         _input.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         CombatManager.Instance.OnCombatVictory -= HandleVictory;
         CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
-
         OnCombatExit?.Invoke();
+    }
+
+    public void EnterDialogue()
+    {
+        _playerCreature.enabled = false;
+        _input.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void ExitDialogue()
+    {
+        _playerCreature.enabled = true;
+        _input.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

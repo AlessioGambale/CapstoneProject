@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   _maxHP: 100
-  _attack: 10
+  _attack: 100
   _defencePercent: 0.2
   _luck: 15
   _maxAP: 2

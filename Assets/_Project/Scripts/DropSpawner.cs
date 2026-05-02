@@ -5,33 +5,33 @@ public class DropSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _droppedItemPrefab;
     [SerializeField] private List<SO_GenericItem> _possibleDrops;
-    [SerializeField] private int _coinDrop;
-    private EnemyCreature _enemy;
-
-    private void Awake()
-    {
-        _enemy = GetComponent<EnemyCreature>();
-    }
+    [SerializeField] private int _coinDrop = 10;
 
     private void Start()
     {
-        _enemy.LifeController.OnDeath += OnDeath;
+        CombatManager.Instance.OnCombatVictory += OnCombatVictory;
     }
 
-    private void OnDeath()
+    private void OnCombatVictory()
     {
+        CombatManager.Instance.OnCombatVictory -= OnCombatVictory;
+
         if (_possibleDrops.Count > 0)
         {
-            SO_GenericItem drop = _possibleDrops[Random.Range(0 , _possibleDrops.Count)];
-            GameObject obj = Instantiate(_droppedItemPrefab , transform.position + Vector3.up , Quaternion.identity);
-            obj.GetComponent<DroppedItem>().SetUp(drop);
+            SO_GenericItem drop = _possibleDrops[Random.Range(0, _possibleDrops.Count)];
+            GameObject obj = Instantiate(_droppedItemPrefab, transform.position + Vector3.up, Quaternion.identity);
+            obj.GetComponent<DroppedItem>()?.SetUp(drop);
         }
-        CoinManager.Instance.AddCoin(_coinDrop);
+
+        //CoinManager.Instance.AddCoin(_coinDrop);
     }
 
     private void OnDestroy()
     {
-        if (_enemy != null) 
-            _enemy.LifeController.OnDeath -= OnDeath;
+        if (CombatManager.Instance != null)
+        {
+            CombatManager.Instance.OnCombatVictory -= OnCombatVictory;
+        }
+       
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-class CombatManager : GenericSingleton<CombatManager>
+public class CombatManager : GenericSingleton<CombatManager>
 {
     [SerializeField] private GameObject _combatHUD;
 

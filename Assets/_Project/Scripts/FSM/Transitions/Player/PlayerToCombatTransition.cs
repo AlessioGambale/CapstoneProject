@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PlayerToCombatTransition : FSM_BaseTransition<PlayerCreature>
 {
-    public bool TriggerTransition { get; set; }
-    public override bool IsConditionMet() => TriggerTransition;
+    private bool _trigger;
+
+    public void Trigger() => _trigger = true;
+
+    public override bool IsConditionMet()
+    {
+        if (_trigger)
+        {
+            _trigger = false;
+            return true;
+        }
+        return false;
+    }
 }

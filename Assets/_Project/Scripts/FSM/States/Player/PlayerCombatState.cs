@@ -15,12 +15,13 @@ public class PlayerCombatState : FSM_BaseState<PlayerCreature>
     public override void OnStateEnter()
     {
         _stateHandler.EnterCombat();
+        Debug.Log("ENTRATO NEL COMBAT STATE");
     }
 
     public override void StateUpdate() { }
 
     public override void OnStateExit()
     {
-        _stateHandler.ExitCombat();
+        Debug.Log("USCITO DAL COMBAT STATE");
     }
 }

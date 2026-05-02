@@ -15,12 +15,13 @@ public class PlayerExplorationState : FSM_BaseState<PlayerCreature>
     public override void OnStateEnter()
     {
         _stateHandler.ExitCombat();
+        Debug.Log("ENTRATO NEL EXPLORATION STATE");
     }
 
     public override void StateUpdate() { }
 
     public override void OnStateExit()
     {
-        _stateHandler.EnterCombat();
+        Debug.Log("USCITO DALL EXPLORATION STATE");
     }
 }
