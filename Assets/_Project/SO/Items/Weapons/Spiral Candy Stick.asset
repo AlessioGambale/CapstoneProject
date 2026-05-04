@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Spiral Candy Stick
   m_EditorClassIdentifier: 
-  _id: 0
-  _name: Sugar Spiral
-  _icon: {fileID: 0}
-  _description: A sweet spinning rod. Stuns enemies with its hypnotic color
-  _buyPrice: 0
+  _id: 1
+  _name: Candy Stick
+  _icon: {fileID: 21300000, guid: f1b772369b6c08148839ab66fd4a1566, type: 3}
+  _description: A festive candy cane, hard as wood. Swings wide enough to knock them
+    all down
+  _buyPrice: 50
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0

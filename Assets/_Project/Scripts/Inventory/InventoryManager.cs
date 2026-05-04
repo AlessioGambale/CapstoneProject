@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class InventoryManager : GenericSingleton<InventoryManager>
 {
-    [SerializeField] private GameObject _player;
     [SerializeField] private int _maxSlots = 6;
     [SerializeField] private List<SO_GenericItem> _inventory = new List<SO_GenericItem>();
 
@@ -39,9 +38,7 @@ public class InventoryManager : GenericSingleton<InventoryManager>
     {
         if (index < 0 || index >= _inventory.Count) return;
         if (_inventory[index] == null) return;
-        _inventory[index].Use(_player);
-        if (_inventory[index].IsConsumable)
-            RemoveItem(index);
+        _inventory[index].Use(PlayerManager.Instance.CurrentPlayer);
         OnInventoryChange?.Invoke();
     }
 
@@ -83,4 +80,11 @@ public class InventoryManager : GenericSingleton<InventoryManager>
         _inventory.Clear();
         OnInventoryChange?.Invoke();
     }
+
+    public void ClearWeaponsAndAbilities()
+    {
+        _inventory.RemoveAll(item => item is SO_Weapon || item is SO_Ability);
+        OnInventoryChange?.Invoke();
+    }
+
 }

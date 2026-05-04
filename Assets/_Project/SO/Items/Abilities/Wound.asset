@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d52ab8861e628e428717effad00a29b, type: 3}
   m_Name: Wound
   m_EditorClassIdentifier: 
-  _id: 0
+  _id: 9
   _name: Wound
   _icon: {fileID: 0}
   _description: Enemies with active status take 50% more damage
-  _buyPrice: 0
+  _buyPrice: 90
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0

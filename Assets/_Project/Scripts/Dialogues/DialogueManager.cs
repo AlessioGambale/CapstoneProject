@@ -16,6 +16,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     [SerializeField] private TextMeshProUGUI _dialogueText;
     [SerializeField] private TextMeshProUGUI _speakerText;
     [SerializeField] private DialogueChoice _choice;
+    [SerializeField] private GameObject _choicesPanel;
 
     [Header("Dialogue State")]
     [SerializeField] private DialogueState _dialogueState;
@@ -33,6 +34,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         _dialogueState = DialogueState.HIDDEN;
         _choiceList = new List<DialogueChoice>();
         _choiceList.Add(_choice);
+        _choice.ChoiceIndex = 0;
     }
 
     public static bool GetBool(string variableName) => _variables.GetBool(variableName);
@@ -121,25 +123,31 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private void DisplayOrHideChoices()
     {
         List<Choice> currentChoices = _currentStory.currentChoices;
-        int i = 0;
 
+        if (_choicesPanel != null)
+            _choicesPanel.SetActive(currentChoices.Count > 0);
+
+        int i = 0;
         for (; i < currentChoices.Count && i < _choiceList.Count; i++)
         {
+            Debug.Log($"Update bottone {i} — testo: {currentChoices[i].text}");
             _choiceList[i].gameObject.SetActive(true);
             _choiceList[i].ChoiceText.SetText(currentChoices[i].text);
         }
         for (; i < currentChoices.Count; i++)
         {
+            Debug.Log($"Istanzio bottone {i} — parent: {_choice.transform.parent.name}");
             DialogueChoice choiceGameObject = Instantiate(_choice, _choice.transform.parent);
             choiceGameObject.ChoiceIndex = i;
             _choiceList.Add(choiceGameObject);
             choiceGameObject.gameObject.SetActive(true);
             choiceGameObject.ChoiceText.SetText(currentChoices[i].text);
+            Debug.Log($"Testo bottone {i}: {currentChoices[i].text}");
         }
         for (; i < _choiceList.Count; i++)
             _choiceList[i].gameObject.SetActive(false);
 
-        if (currentChoices.Count > 0)
+        if (currentChoices.Count > 0 && EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(_choiceList[0].gameObject);
     }
 
@@ -159,6 +167,12 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                     case "speaker":
                         if (_speakerText != null)
                             _speakerText.SetText(tagValue);
+                        break;
+                    case "nextknot":
+                        RunManager.Instance.SetPathKnot(tagValue);
+                        break;
+                    case "path":
+                        RunManager.Instance.SetChosenPath(tagValue);
                         break;
                     default:
                         Debug.Log($"Tag: {tagKey} - Value: {tagValue}");
@@ -204,7 +218,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                 _dialogueState = DialogueState.PLAYING;
                 return;
             case DialogueState.PLAYING:
-                if (Input.GetButtonDown("Submit"))
+                if (Input.GetKeyDown(KeyCode.E))
                     ContinueStory();
                 break;
             case DialogueState.SELECTING_CHOICES:

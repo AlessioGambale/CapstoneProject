@@ -1,67 +1,76 @@
-Path
-
--> path_choice_1
 === path_choice_1 ===
 # speaker: Orin
 We must choose our next move carefully.
 Which path do you take?
 * [Left]
-    -> path_left_2
+    # path: left
+    # nextknot: path_left_2
+    -> END
 * [Right]
-    -> path_right_2
+    # path: right
+    # nextknot: path_right_2
+    -> END
 
 === path_left_2 ===
 # speaker: Orin
 Left it is. And now?
 * [Center]
-    -> path_left_center_3
+    # path: center
+    # nextknot: path_left_center_3
+    -> END
 * [Right]
-    -> path_left_right_3
+    # path: right
+    # nextknot: path_left_right_3
+    -> END
 
 === path_left_center_3 ===
 # speaker: Orin
 Through the center. One last choice.
 * [Left]
-    # path: left_center_left
+    # path: left
     -> END
 * [Right]
-    # path: left_center_right
+    # path: right
     -> END
 
 === path_left_right_3 ===
 # speaker: Orin
 To the right. One last choice.
 * [Center]
-    # path: left_right_center
+    # path: center
     -> END
 * [Right]
-    # path: left_right_right
+    # path: right
     -> END
 
 === path_right_2 ===
 # speaker: Orin
 Right it is. And now?
 * [Left]
-    -> path_right_left_3
-* [Straight]
-    -> path_right_straight_3
+    # path: left
+    # nextknot: path_right_left_3
+    -> END
+* [Center]
+    # path: center
+    # nextknot: path_right_center_3
+    -> END
 
 === path_right_left_3 ===
 # speaker: Orin
 To the left. One last choice.
-* [Straight]
-    # path: right_left_straight
+* [Center]
+    # path: center
     -> END
 * [Right]
-    # path: right_left_right
+    # path: right
     -> END
 
-=== path_right_straight_3 ===
+=== path_right_center_3 ===
 # speaker: Orin
-Straight ahead. One last choice.
-* [Straight]
-    # path: right_straight_straight
+Through the center. One last choice.
+* [Center]
+    # path: center
     -> END
 * [Right]
-    # path: right_straight_right
+    # path: right
     -> END

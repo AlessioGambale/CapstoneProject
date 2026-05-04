@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomDropManager : MonoBehaviour
+public class RandomDropManager : GenericSingleton<RandomDropManager>
 {
+    protected override bool ShouldBeDestroyedOnLoad => false;
+
     [SerializeField] private List<SO_Weapon> _weapons;
     [SerializeField] private List<SO_Ability> _abilities;
 
-    public static RandomDropManager Instance { get; private set; }
+    private List<SO_Weapon> _unlockedWeapons = new List<SO_Weapon>();
+    private List<SO_Ability> _unlockedAbilities = new List<SO_Ability>();
 
-    private void Awake()
+    public void UnlockWeapon(SO_Weapon weapon)
     {
-        Instance = this;
+        if (!_unlockedWeapons.Contains(weapon))
+            _unlockedWeapons.Add(weapon);
+    }
+
+    public void UnlockAbility(SO_Ability ability)
+    {
+        if (!_unlockedAbilities.Contains(ability))
+            _unlockedAbilities.Add(ability);
     }
 
     public void GetRandomDrop()
@@ -22,13 +32,15 @@ public class RandomDropManager : MonoBehaviour
 
     public void GetRandomAbilty()
     {
-        int random = Random.Range(0, _abilities.Count);
-        InventoryManager.Instance.AddItem(_abilities[random]);
+        if (_unlockedAbilities.Count == 0) return;
+        int random = Random.Range(0, _unlockedAbilities.Count);
+        InventoryManager.Instance.AddItem(_unlockedAbilities[random]);
     }
 
     public void GetRandomWeapon()
     {
-        int random = Random.Range(0, _weapons.Count);
-        InventoryManager.Instance.AddItem(_weapons[random]);
+        if (_unlockedWeapons.Count == 0) return;
+        int random = Random.Range(0, _unlockedWeapons.Count);
+        InventoryManager.Instance.AddItem(_unlockedWeapons[random]);
     }
 }

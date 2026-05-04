@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pin metal
+* source:	https://sketchfab.com/3d-models/pin-metal-7105aedeb36c482ab85d99e0d0b269ed
+* author:	HQ3DMOD (https://sketchfab.com/AivisAstics)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pin metal" (https://sketchfab.com/3d-models/pin-metal-7105aedeb36c482ab85d99e0d0b269ed) by HQ3DMOD (https://sketchfab.com/AivisAstics) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

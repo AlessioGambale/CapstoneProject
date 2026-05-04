@@ -11,8 +11,9 @@ public class Chest : InteractableObject
     protected override void OnInteract()
     {
         if (_opened) return;
-        if (!ExplorationManager.Instance.TrySpendEP(_epCost)) return;
+        if (_epCost > 0 && !ExplorationManager.Instance.TrySpendEP(_epCost)) return;
         _opened = true;
+        GetComponentInParent<AnimationParamHandler>()?.Open();
         GiveLoot();
     }
 

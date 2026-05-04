@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Righello Rotto
   m_EditorClassIdentifier: 
-  _id: 0
-  _name: The Ruler
-  _icon: {fileID: 0}
-  _description: A rigid ruler. Drives enemies into a panic frenzy
-  _buyPrice: 0
+  _id: 3
+  _name: Silly Knife
+  _icon: {fileID: 21300000, guid: 91b7d1fad2c23eb44ac7932e3ce1230e, type: 3}
+  _description: A plastic knife from a toy kitchen set. Surprisingly sharp when it
+    counts
+  _buyPrice: 70
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0

@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DialogueTrigger : MonoBehaviour
+ class DialogueTrigger : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextAsset _inkJason;
     [SerializeField] private GameObject _visualCue;
-
     [Header("Events")]
     [SerializeField] private UnityEvent _onDialogueEnd;
-
+    [SerializeField] private UnityEvent _onSecondDialogueEnd;
+    [SerializeField] private UnityEvent _onFinalDialogueEnd;
     [Header("Second Dialogue")]
     [SerializeField] private TextAsset _inkJasonSecond;
     [SerializeField] private string _secondKnot;
+    [Header("Final Dialogue")]
+    [SerializeField] private TextAsset _inkJasonFinal;
+    [SerializeField] private bool _isOrin;
 
-    private bool _firstDone;
     private bool _playerInRange;
     private PlayerStateHandler _playerStateHandler;
 
@@ -31,23 +33,47 @@ public class DialogueTrigger : MonoBehaviour
         if (_playerInRange && !DialogueManager.Instance.IsDialoguePlaying())
         {
             _visualCue.SetActive(true);
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!_firstDone)
+                if (_isOrin && RunManager.Instance != null)
                 {
-                    _firstDone = true;
+                    if (!RunManager.Instance.OrinIntroPlayed)
+                    {
+                        RunManager.Instance.SetOrinIntroPlayed();
+                        _playerStateHandler?.EnterDialogue();
+                        DialogueManager.Instance.EnterDialogueMode(_inkJason, () =>
+                        {
+                            _playerStateHandler?.ExitDialogue();
+                            _onDialogueEnd?.Invoke();
+                        });
+                    }
+                    else if (_inkJasonFinal != null && RunManager.Instance.FightsWon >= 4 && RunManager.Instance.LastFightWon)
+                    {
+                        RunManager.Instance.ClearFightWon();
+                        _playerStateHandler?.EnterDialogue();
+                        DialogueManager.Instance.EnterDialogueMode(_inkJasonFinal, () =>
+                        {
+                            _playerStateHandler?.ExitDialogue();
+                            RunManager.Instance.UnlockBoss();
+                            _onFinalDialogueEnd?.Invoke();
+                        });
+                    }
+                    else if (_inkJasonSecond != null && RunManager.Instance.LastFightWon)
+                    {
+                        RunManager.Instance.ClearFightWon();
+                        _playerStateHandler?.EnterDialogue();
+                        string knot = RunManager.Instance.CurrentPathKnot;
+                        DialogueManager.Instance.EnterDialogueMode(_inkJasonSecond, knot, () =>
+                        {
+                            _playerStateHandler?.ExitDialogue();
+                            _onSecondDialogueEnd?.Invoke();
+                        });
+                    }
+                }
+                else
+                {
                     _playerStateHandler?.EnterDialogue();
                     DialogueManager.Instance.EnterDialogueMode(_inkJason, () =>
-                    {
-                        _playerStateHandler?.ExitDialogue();
-                        _onDialogueEnd?.Invoke();
-                    });
-                }
-                else if (_inkJasonSecond != null && RunManager.Instance.LastFightWon)
-                {
-                    RunManager.Instance.ClearFightWon();
-                    _playerStateHandler?.EnterDialogue();
-                    DialogueManager.Instance.EnterDialogueMode(_inkJasonSecond, _secondKnot, () =>
                     {
                         _playerStateHandler?.ExitDialogue();
                         _onDialogueEnd?.Invoke();

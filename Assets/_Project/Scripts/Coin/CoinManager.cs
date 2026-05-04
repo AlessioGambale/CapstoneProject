@@ -8,6 +8,7 @@ public class CoinManager : GenericSingleton<CoinManager>
     [SerializeField] private int _coins;
     public event Action<int> CoinChanged;
     public int Coins => _coins;
+    protected override bool ShouldBeDestroyedOnLoad => false;
     public void AddCoin(int value)
     {
         _coins += value;

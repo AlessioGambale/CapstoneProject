@@ -11,12 +11,21 @@ public class CombatTriggerZone : MonoBehaviour
     [SerializeField] private Transform _cameraPosition;
     [SerializeField] private Collider _collider;
     [SerializeField] private string _zoneId;
+    [SerializeField] private GameObject _chestPrefab;
+    [SerializeField] private Transform _chestSpawnPoint;
+
 
     private Transform _player;
     private bool _triggered;
 
     private void Start()
     {
+        if (_combatCanvas == null)
+            _combatCanvas = GameObject.FindGameObjectWithTag("CombatCanvas");
+
+        if (_combatCamera == null)
+            _combatCamera = GameObject.FindGameObjectWithTag("CombatCamera")?.GetComponent<CinemachineVirtualCamera>();
+
         if (RunManager.Instance.IsZoneTriggered(_zoneId))
         {
             _triggered = true;
@@ -27,8 +36,11 @@ public class CombatTriggerZone : MonoBehaviour
         {
             _combatCamera.Priority = 0;
             if (_cameraPosition != null)
+            {
                 _combatCamera.transform.position = _cameraPosition.position;
-            _combatCamera.transform.rotation = _cameraPosition.rotation;
+                _combatCamera.transform.rotation = _cameraPosition.rotation;
+            }
+                
         }
     }
 
@@ -58,11 +70,16 @@ public class CombatTriggerZone : MonoBehaviour
         _combatCanvas.SetActive(true);
 
         CombatManager.Instance.RegisterPlayer(other.GetComponent<PlayerCreature>());
-
         foreach (var enemy in _enemies)
             CombatManager.Instance.RegisterEnemy(enemy);
 
+       
         other.GetComponentInChildren<PlayerToCombatTransition>()?.Trigger();
+
+       
+        other.GetComponent<UI_CombatantHUD>()?.Activate();
+        foreach (var enemy in _enemies)
+            enemy.GetComponent<UI_CombatantHUD>()?.Activate();
 
         CombatManager.Instance.OnCombatVictory += OnCombatVictory;
         CombatManager.Instance.OnCombatDefeat += OnCombatDefeat;
@@ -73,6 +90,14 @@ public class CombatTriggerZone : MonoBehaviour
         CombatManager.Instance.OnCombatVictory -= OnCombatVictory;
         CombatManager.Instance.OnCombatDefeat -= OnCombatDefeat;
         RunManager.Instance.SetFightWon();
+        InventoryManager.Instance.ClearWeaponsAndAbilities();
+        RunManager.Instance.ClearGearPulled();
+
+        if (_chestPrefab != null && _chestSpawnPoint != null)
+        {
+            Instantiate(_chestPrefab, _chestSpawnPoint.position, _chestSpawnPoint.rotation);
+        }
+           
         CleanupCombat();
     }
 
@@ -86,6 +111,14 @@ public class CombatTriggerZone : MonoBehaviour
     private void CleanupCombat()
     {
         _collider.enabled = false;
+        _combatCanvas.SetActive(false);
+        _player.GetComponent<UI_CombatantHUD>()?.Deactivate();
+        foreach (var enemy in _enemies)
+            if (enemy != null)
+            {
+                enemy.GetComponent<UI_CombatantHUD>()?.Deactivate();
+            }
+               
 
         if (_combatCamera != null)
         {

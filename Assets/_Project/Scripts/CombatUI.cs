@@ -40,7 +40,11 @@ public class CombatUI : MonoBehaviour
 
     private void OnDisable()
     {
-        TurnManager.Instance.OnAPChanged -= UpdateButtons;
+        if (CombatManager.Instance != null)
+            CombatManager.Instance.OnCombatStarted -= Refresh;
+
+        if (TurnManager.Instance != null)
+            TurnManager.Instance.OnAPChanged -= UpdateButtons;
     }
 
     private void Refresh()

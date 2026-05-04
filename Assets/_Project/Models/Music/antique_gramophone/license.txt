@@ -1,0 +1,11 @@
+Model Information:
+* title:	Antique Gramophone
+* source:	https://sketchfab.com/3d-models/antique-gramophone-273c7d3eb57a4eaca2c306aaa96ee2f2
+* author:	alelivaca (https://sketchfab.com/alelivaca)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Antique Gramophone" (https://sketchfab.com/3d-models/antique-gramophone-273c7d3eb57a4eaca2c306aaa96ee2f2) by alelivaca (https://sketchfab.com/alelivaca) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -7,6 +7,7 @@ public class PlayerStateHandler : MonoBehaviour
     [SerializeField] private PlayerCreature _playerCreature;
     [SerializeField] private InputHandler _input;
 
+    private AnimationParamHandler _paramHandler;
     public bool IsInCombat { get; private set; }
     public event Action OnCombatEnter;
     public event Action OnCombatExit;
@@ -15,6 +16,7 @@ public class PlayerStateHandler : MonoBehaviour
     {
         if (_playerCreature == null) _playerCreature = GetComponent<PlayerCreature>();
         if (_input == null) _input = GetComponent<InputHandler>();
+        _paramHandler = GetComponent<AnimationParamHandler>();
     }
 
     private void HandleVictory()
@@ -25,6 +27,7 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void HandleDefeat()
     {
+        RunManager.Instance.ResetRun();
         _playerCreature.Die();
     }
 
@@ -40,6 +43,7 @@ public class PlayerStateHandler : MonoBehaviour
         CombatManager.Instance.OnCombatVictory += HandleVictory;
         CombatManager.Instance.OnCombatDefeat += HandleDefeat;
         OnCombatEnter?.Invoke();
+        _paramHandler?.EnterCombatLayer();
     }
 
     public void ExitCombat()
@@ -53,6 +57,7 @@ public class PlayerStateHandler : MonoBehaviour
         CombatManager.Instance.OnCombatVictory -= HandleVictory;
         CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
         OnCombatExit?.Invoke();
+        _paramHandler?.ExitCombatLayer();
     }
 
     public void EnterDialogue()

@@ -2,29 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomItemDropper : MonoBehaviour
+public class RandomItemDropper : InteractableObject
 {
-    [SerializeField] private RandomDropManager _randomDropManager;
-    private bool _isInTrigger = true;
-    private bool _canDrop = true;
-
-    private void Update()
+    protected override void OnInteract()
     {
-        if (!_isInTrigger) return;
-        if (!Input.GetKeyDown(KeyCode.E)) return;
-        if (!_canDrop) return;
+        if (RunManager.Instance.HasPulledGear) return;
+        RunManager.Instance.SetGearPulled();
         RandomDropManager.Instance.GetRandomDrop();
-        _canDrop = true;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-        _isInTrigger = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-        _isInTrigger = false;
     }
 }

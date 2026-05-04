@@ -8,12 +8,9 @@ public class UI_MerchantWindow : MonoBehaviour
     [SerializeField] private UI_ShopItemSlot _slotPrefab;
     [SerializeField] private Transform _slotParent;
     [SerializeField] private Button _buyButton;
-    [SerializeField] private Button _sellButton;
 
     [Header("Item References")]
-    [SerializeField] private TextMeshProUGUI _merchantNameText;
     [SerializeField] private TextMeshProUGUI _itemNameText;
-    [SerializeField] private TextMeshProUGUI _itemSellPriceText;
     [SerializeField] private TextMeshProUGUI _itemBuyPriceText;
     [SerializeField] private TextMeshProUGUI _itemDescriptionText;
     [SerializeField] private Image _itemIcon;
@@ -24,14 +21,12 @@ public class UI_MerchantWindow : MonoBehaviour
     public void Setup(SO_Merchant merchant)
     {
         _merchant = merchant;
-        _merchantNameText.SetText(_merchant.Name);
 
         foreach (var itemToSell in _merchant.ItemsToSell)
         {
             UI_ShopItemSlot itemSlot = Instantiate(_slotPrefab, _slotParent);
             itemSlot.Setup(itemToSell, OnSelected);
         }
-        gameObject.SetActive(true);
     }
 
     public void OnSelected(SO_GenericItem item)
@@ -46,7 +41,11 @@ public class UI_MerchantWindow : MonoBehaviour
         if (CoinManager.Instance.Coins >= _selectedItem.BuyPrice)
         {
             CoinManager.Instance.Spend(_selectedItem.BuyPrice);
-            InventoryManager.Instance.AddItem(_selectedItem);
+            // NON aggiunge all'inventario — sblocca solo il drop pool
+            if (_selectedItem is SO_Weapon w)
+                RandomDropManager.Instance.UnlockWeapon(w);
+            else if (_selectedItem is SO_Ability a)
+                RandomDropManager.Instance.UnlockAbility(a);
             RefreshUI();
         }
     }
@@ -57,9 +56,7 @@ public class UI_MerchantWindow : MonoBehaviour
         bool canBuy = CoinManager.Instance.Coins >= _selectedItem.BuyPrice;
         bool canSell = InventoryManager.Instance.HasItem(_selectedItem);
         _buyButton.interactable = canBuy;
-        _sellButton.interactable = canSell;
         _itemNameText.SetText(_selectedItem.Name);
-        _itemSellPriceText.SetText(_selectedItem.SellPrice.ToString());
         _itemBuyPriceText.SetText(_selectedItem.BuyPrice.ToString());
         _itemDescriptionText.SetText(_selectedItem.Description);
         _itemIcon.sprite = _selectedItem.Icon;

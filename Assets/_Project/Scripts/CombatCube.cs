@@ -1,24 +1,10 @@
 using UnityEngine;
 
-public class CombatCube : MonoBehaviour
+public class CombatCube : MonoBehaviour, IInteractable 
 {
     [SerializeField] private GameObject _uiPanel;
 
     private static CombatCube _currentOpen;
-
-    private void OnMouseDown()
-    {
-        if (_currentOpen == this)
-        {
-            Close();
-            return;
-        }
-
-        if (_currentOpen != null)
-            _currentOpen.Close();
-
-        Open();
-    }
 
     private void Open()
     {
@@ -30,5 +16,20 @@ public class CombatCube : MonoBehaviour
     {
         _currentOpen = null;
         _uiPanel.SetActive(false);
+    }
+
+    public void Interact()
+    {
+
+        if (_currentOpen == this)
+        {
+            Close();
+            return;
+        }
+
+        if (_currentOpen != null)
+            _currentOpen.Close();
+
+        Open();
     }
 }

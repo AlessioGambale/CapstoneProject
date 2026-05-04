@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _name: The Needle
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: a95f4065a83500f4686d4e346e055c7b, type: 3}
   _description: A sharp needle. Pierces defence and makes enemies bleed
-  _buyPrice: 0
+  _buyPrice: 80
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0

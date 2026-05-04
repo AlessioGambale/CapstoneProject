@@ -4,8 +4,9 @@ using UnityEngine;
 public enum ExplorationAction
 {
     None = 0,
-    OpenChest = 1 , 
-    RepairCar = 2 , 
+    OpenChest = 2 , 
+    RepairCar = 5 ,
+    OpenSpecialChest = 3,
 }
 
 public class ExplorationManager : GenericSingleton<ExplorationManager>
@@ -15,6 +16,7 @@ public class ExplorationManager : GenericSingleton<ExplorationManager>
 
     public event Action<int> OnEPChanged;
     public int MaxEP => _maxEP;
+    public int CurrentEP => _currentEP; 
 
     protected override void Awake()
     {

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c211f04fc85894f91b1c8ddff08c26, type: 3}
   m_Name: Matita Gigante
   m_EditorClassIdentifier: 
-  _id: 0
+  _id: 2
   _name: Toy Crusher
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: e045bdc4bad51b845afb7e94f82182eb, type: 3}
   _description: A heavy toy hammer. Crushes enemies leaving them weakened
-  _buyPrice: 0
+  _buyPrice: 120
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0

@@ -34,6 +34,7 @@ public class LifeController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         float finalDamage = Mathf.Max(1f, damage);
+        GetComponentInParent<AnimationParamHandler>()?.TakeHit();
         SetHp((int)(_currentHealth - finalDamage));
     }
 
@@ -62,6 +63,7 @@ public class LifeController : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Debug.Log("[Life] " + gameObject.name + " morto");
+            GetComponentInParent<AnimationParamHandler>()?.Death();
             OnDeath?.Invoke();
         }
     }

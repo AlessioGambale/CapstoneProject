@@ -119,7 +119,7 @@ public class EnemyAI : MonoBehaviour
     private void ExecuteAttack(PlayerCreature player)
     {
         StatusController status = _enemy.GetComponent<StatusController>();
-
+        _enemy.GetComponentInParent<AnimationParamHandler>()?.Attack();
         if (status != null && status.IsPanicked())
         {
             EnemyCreature ally = CombatManager.Instance.GetRandomAlly(_enemy);
@@ -142,6 +142,7 @@ public class EnemyAI : MonoBehaviour
 
     private void ExecuteHeal()
     {
+        _enemy.GetComponentInParent<AnimationParamHandler>()?.Heal();
         float healAmount = _enemy.LifeController.MaxHealth * _healPercent;
         Debug.Log("EnemyAI heal " + (int)healAmount);
         _enemy.LifeController.AddHp((int)healAmount);

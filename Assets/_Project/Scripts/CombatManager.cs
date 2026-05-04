@@ -44,12 +44,7 @@ public class CombatManager : GenericSingleton<CombatManager>
 
     private void TryStartCombat()
     {
-        if (_combatHUD != null)
-            _combatHUD.SetActive(true);
-
-        Debug.Log($"TryStartCombat — player: {_player}, nemici: {_enemies.Count}");
         if (_player == null || _enemies.Count == 0) return;
-        Debug.Log("Combat avviato");
 
         TurnManager.Instance.OnTurnCycleFinished -= CheckCombatEnd;
         TurnManager.Instance.OnEnemyTurnStarted -= HandleEnemyTurn;
@@ -59,6 +54,7 @@ public class CombatManager : GenericSingleton<CombatManager>
         TurnManager.Instance.SetUp(_player, _enemies);
         TurnManager.Instance.StartCombat();
         OnCombatStarted?.Invoke();
+
     }
 
     public void StartTargeting(System.Action<EnemyCreature> onSelected)
@@ -116,10 +112,13 @@ public class CombatManager : GenericSingleton<CombatManager>
         SO_Weapon weapon = InventoryManager.Instance.CurrentWeapon;
         if (weapon == null) return;
         if (!TurnManager.Instance.TrySpendAP(weapon.BaseAttackAPCost)) return;
+        _player.GetComponent<AnimationParamHandler>()?.Attack();
 
         float damage = CalculateDamage(_player.Stats.Attack, weapon.BaseDamage, target);
 
         ExecuteHit(target, damage, weapon.StatusBuildUp, weapon.StatusType, false);
+
+        if (_player == null) return;
 
         int speedRoll = UnityEngine.Random.Range(0, 100);
         if (speedRoll < _player.Stats.Speed)
@@ -134,6 +133,7 @@ public class CombatManager : GenericSingleton<CombatManager>
         SO_Weapon weapon = InventoryManager.Instance.CurrentWeapon;
         if (weapon == null) return;
         if (!TurnManager.Instance.TrySpendAP(weapon.SpecialAttackAPCost)) return;
+        _player.GetComponent<AnimationParamHandler>()?.SpecialAttack();
 
         float damage = CalculateDamage(_player.Stats.Attack, weapon.BaseDamage, target);
         float buildUp = weapon.StatusBuildUp * 2f;
@@ -188,6 +188,7 @@ public class CombatManager : GenericSingleton<CombatManager>
         SO_Ability ability = InventoryManager.Instance.CurrentAbility;
         if (ability == null) return;
         if (!TurnManager.Instance.TrySpendAP(ability.ApCost)) return;
+        _player.GetComponent<AnimationParamHandler>()?.Ability();
         ability.Use(_player.gameObject);
     }
 
@@ -202,6 +203,13 @@ public class CombatManager : GenericSingleton<CombatManager>
             target.Hit(damage);
 
         ApplyStatusBuildup(target, buildUp, statusType);
+
+        if (_enemies.All(e => e.IsDead))
+        {
+            Debug.Log("[CombatManager] Tutti i nemici morti — vittoria immediata!");
+            OnCombatVictory?.Invoke();
+            EndCombat();
+        }
     }
 
     private void HandleEnemyTurn()
@@ -282,7 +290,7 @@ public class CombatManager : GenericSingleton<CombatManager>
         if (luckRoll < _player.Stats.Luck)
         {
             damage *= 2f;
-            Debug.Log($"[Damage] Luck crit! ({_player.Stats.Luck}% chance): {damage}");
+            Debug.Log($"[Damage] Luck crit ({_player.Stats.Luck}% chance): {damage}");
         }
         Debug.Log($"[Damage] TOTALE: {damage}");
         return damage;

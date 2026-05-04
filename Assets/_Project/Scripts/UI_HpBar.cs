@@ -50,7 +50,6 @@ public class UI_HpBar : MonoBehaviour
 
         _enemy = enemy;
         _lifeController = enemy.LifeController;
-        _nameText.SetText(enemy.CreatureName);
 
         if (_selectButton != null)
         {
@@ -97,7 +96,6 @@ public class UI_HpBar : MonoBehaviour
 
     private void UpdateBar(int current, int max)
     {
-        Debug.Log($"[UI_HpBar] UpdateBar — {current}/{max} — fillAmount target: {(float)current / max}");
         float percent = (float)current / max;
         if (_hpRoutine != null)
             StopCoroutine(_hpRoutine);
@@ -170,13 +168,11 @@ public class UI_HpBar : MonoBehaviour
     {
         if (_selectButton == null || _enemy == null) return;
         bool canSelect = CombatManager.Instance.isTargeting && !_enemy.IsDead;
-        Debug.Log($"RefreshTargetButton — isTargeting: {CombatManager.Instance.isTargeting}, interactable: {canSelect}");
         _selectButton.interactable = canSelect;
     }
 
     private void OnSelected()
     {
-        Debug.Log($"OnSelected chiamato — enemy: {_enemy?.name}, isDead: {_enemy?.IsDead}, isTargeting: {CombatManager.Instance.isTargeting}");
         if (_enemy == null || _enemy.IsDead) return;
         CombatManager.Instance.SelectTarget(_enemy);
     }
@@ -206,15 +202,8 @@ public class UI_HpBar : MonoBehaviour
     private void OnDestroy()
     {
         if (_lifeController != null)
-        {
             _lifeController.OnHealthChange -= UpdateBar;
-        }
 
-        if (_lifeController != null)
-        {
-            _lifeController.OnHealthChange -= UpdateBar;
-        }
-          
         if (_statusController != null)
         {
             _statusController.OnBuildupChanged -= UpdateBuildup;

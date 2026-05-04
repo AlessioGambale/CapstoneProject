@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatCubeEndTurn : MonoBehaviour
+public class CombatCubeEndTurn : MonoBehaviour , IInteractable
 {
-    private void OnMouseDown()
+    public void Interact()
     {
         TurnManager.Instance.EndPlayerTurn();
     }
+
 }

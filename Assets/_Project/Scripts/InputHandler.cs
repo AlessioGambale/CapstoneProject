@@ -8,7 +8,6 @@ public class InputHandler : MonoBehaviour
     public bool IsMovementPressed { get; private set; }
     public bool IsJumpPressed { get; private set; }
 
-
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
