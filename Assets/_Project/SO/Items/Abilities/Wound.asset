@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 9
   _name: Wound
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: b6f3c6bb0641eb348be8338e765c3993, type: 3}
   _description: Enemies with active status take 50% more damage
   _buyPrice: 90
   _sellPrice: 0

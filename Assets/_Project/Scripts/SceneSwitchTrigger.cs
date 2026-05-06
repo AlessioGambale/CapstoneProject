@@ -24,7 +24,7 @@ public class SceneSwitchTrigger : MonoBehaviour
 
             if (!hasWeapon || !hasAbility)
             {
-                Debug.Log("[SceneSwitch] Devi avere arma e abilità per entrare!");
+                PopupMessage.Instance.Show("Make sure to grab your gear before heading into battle");
                 return;
             }
         }

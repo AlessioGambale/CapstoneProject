@@ -176,7 +176,7 @@ public class CombatManager : GenericSingleton<CombatManager>
         ExecuteHit(target, damage, buildUp, weapon.StatusType, false);
 
         int speedRoll = UnityEngine.Random.Range(0, 100);
-        if (speedRoll < _player.Stats.Speed)
+        if (_player != null && speedRoll < _player.Stats.Speed)
         {
             TurnManager.Instance.RestoreAP(1);
             Debug.Log($"[Speed] AP recuperato! ({_player.Stats.Speed}% chance)");

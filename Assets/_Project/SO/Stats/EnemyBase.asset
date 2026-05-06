@@ -18,4 +18,4 @@ MonoBehaviour:
   _luck: 0
   _maxAP: 0
   _maxEP: 0
-  _speed: 8
+  _speed: 0

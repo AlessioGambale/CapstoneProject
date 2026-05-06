@@ -11,6 +11,9 @@ public class RandomDropManager : GenericSingleton<RandomDropManager>
 
     private List<SO_Weapon> _unlockedWeapons = new List<SO_Weapon>();
     private List<SO_Ability> _unlockedAbilities = new List<SO_Ability>();
+    public int UnlockedCount => _unlockedWeapons.Count + _unlockedAbilities.Count;
+    public bool IsWeaponUnlocked(SO_Weapon weapon) => _unlockedWeapons.Contains(weapon);
+    public bool IsAbilityUnlocked(SO_Ability ability) => _unlockedAbilities.Contains(ability);
 
     public void UnlockWeapon(SO_Weapon weapon)
     {
@@ -42,5 +45,10 @@ public class RandomDropManager : GenericSingleton<RandomDropManager>
         if (_unlockedWeapons.Count == 0) return;
         int random = Random.Range(0, _unlockedWeapons.Count);
         InventoryManager.Instance.AddItem(_unlockedWeapons[random]);
+    }
+    public void ResetDrops()
+    {
+        _unlockedWeapons.Clear();
+        _unlockedAbilities.Clear();
     }
 }

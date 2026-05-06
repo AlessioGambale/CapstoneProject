@@ -44,6 +44,7 @@ using UnityEngine.Events;
                         DialogueManager.Instance.EnterDialogueMode(_inkJason, () =>
                         {
                             _playerStateHandler?.ExitDialogue();
+                            CoinManager.Instance.AddCoin(200);
                             _onDialogueEnd?.Invoke();
                         });
                     }

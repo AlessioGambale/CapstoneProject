@@ -3,19 +3,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : GenericSingleton<UIManager>
 {
+    [SerializeField] private GameObject _pausePanel;
+    private bool _isPaused;
     private bool _isUIOpen;
     public bool IsUIOpen => _isUIOpen;
-    private void Awake()
-    {
-        _isUIOpen = false;
-    }
+   
     public void OpenUI()
     {
         _isUIOpen = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        CameraOrbit.Instance?.LockCamera();
     }
 
     public void CloseUI()
@@ -23,17 +23,66 @@ public class UIManager : MonoBehaviour
         _isUIOpen = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        CameraOrbit.Instance?.UnlockCamera();
     }
+
     public void Play()
     {
         SceneManager.LoadScene("ExplorationScene");
     }
-    public void Restart()
+    public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        RunManager.Instance.ResetRun();
+        InventoryManager.Instance.ClearInventory();
+        CoinManager.Instance.ResetCoins();
+        RandomDropManager.Instance.ResetDrops();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ExplorationScene");
     }
+
     public void BackToMenu()
     {
+        RunManager.Instance.ResetRun();
+        InventoryManager.Instance.ClearInventory();
+        CoinManager.Instance.ResetCoins();
+        RandomDropManager.Instance.ResetDrops();
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void Quit()
+    {
+#if UNITY_WEBGL
+        Application.OpenURL("https://itch.io");
+#else
+    Application.Quit();
+#endif
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            TogglePause();
+    }
+
+    public void TogglePause()
+    {
+        _isPaused = !_isPaused;
+        _pausePanel.SetActive(_isPaused);
+        Time.timeScale = _isPaused ? 0f : 1f;
+        OpenUI();
+        if (!_isPaused)
+        {
+            CloseUI();
+        }
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+        _pausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        CloseUI();
+    }
+
 }

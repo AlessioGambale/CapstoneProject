@@ -21,9 +21,11 @@ public class CameraOrbit : MonoBehaviour
 
     private float _currentZoom;
     private Camera _camera;
+    public static CameraOrbit Instance { get; private set; }
 
     private void Awake()
     {
+        Instance = this;
         _camera = Camera.main;
     }
 
@@ -35,6 +37,17 @@ public class CameraOrbit : MonoBehaviour
     public void LockMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void LockCamera()
+    {
+        _freeLook.m_XAxis.m_MaxSpeed = 0f;
+        _freeLook.m_YAxis.m_MaxSpeed = 0f;
+    }
+
+    public void UnlockCamera()
+    {
+        _freeLook.m_XAxis.m_MaxSpeed = 300f;
+        _freeLook.m_YAxis.m_MaxSpeed = 2f;  
     }
 
     private void HandleZoom()

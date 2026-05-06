@@ -123,12 +123,13 @@ public class CarController : MonoBehaviour
         _isDriving = false;
 
         _playerCreature.transform.SetParent(_playerOriginalParent);
-        _playerCreature.transform.position = transform.position + transform.right * 1.5f;
+        _playerCreature.transform.position = transform.position + transform.right * 0.1f;
 
         _playerAnimator?.SetBool("IsSitting", false);
         _playerCreature.enabled = true;
 
         _rb.velocity = Vector3.zero;
+
     }
 
     public void SetColor(Color _c) =>

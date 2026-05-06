@@ -28,6 +28,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private static DialogueVariables _variables = new DialogueVariables();
     private List<DialogueChoice> _choiceList;
 
+   
     private void Start()
     {
         _dialoguePanel.SetActive(false);
@@ -59,6 +60,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             _currentStory.ChoosePathString(targetKnot);
 
         _dialoguePanel.SetActive(true);
+        UIManager.Instance?.OpenUI();
         _dialogueState = DialogueState.ENTERING;
 
         _variables.AddNewGlobalVariablesFromStory(_currentStory);
@@ -108,6 +110,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         _variables.StopListening(_currentStory);
         _dialogueState = DialogueState.HIDDEN;
         _dialoguePanel.SetActive(false);
+        UIManager.Instance?.CloseUI();
         _dialogueText.SetText(string.Empty);
         if (_speakerText != null)
             _speakerText.SetText(string.Empty);
@@ -208,6 +211,12 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                 return false;
         }
     }
+
+    public void ResetDialogues()
+    {
+        _variables = new DialogueVariables();
+    }
+
 
     private void Update()
     {

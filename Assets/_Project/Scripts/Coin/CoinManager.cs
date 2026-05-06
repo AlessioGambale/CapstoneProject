@@ -22,4 +22,9 @@ public class CoinManager : GenericSingleton<CoinManager>
         CoinChanged?.Invoke(_coins);
         return true;
     }
+    public void ResetCoins()
+    {
+        _coins = 0;
+        CoinChanged?.Invoke(_coins);
+    }
 }

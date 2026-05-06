@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimationParamHandler : MonoBehaviour
 {
     [SerializeField] private string _forwardName = "Forward";
-    [SerializeField] private string _isOpenName = "IsOpen";
+    [SerializeField] private string _openName = "Open";
     [SerializeField] private string _isInsideName = "IsInside";
     [SerializeField] private string _jumpName = "Jump";
     [SerializeField] private string _deathName = "Death";
@@ -44,7 +44,7 @@ public class AnimationParamHandler : MonoBehaviour
     
     public void Open()
     {
-        _animator.SetTrigger(_isOpenName);
+        _animator.SetTrigger(_openName);
     }
     
     public void OnIsInside()

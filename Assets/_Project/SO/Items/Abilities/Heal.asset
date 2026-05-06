@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 7
   _name: Heal
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 447154638f20e134c945a455d4ceb2a6, type: 3}
   _description: Restore 25% HP. Next turn -1 AP
   _buyPrice: 60
   _sellPrice: 0

@@ -8,6 +8,7 @@ public class UI_MerchantWindow : MonoBehaviour
     [SerializeField] private UI_ShopItemSlot _slotPrefab;
     [SerializeField] private Transform _slotParent;
     [SerializeField] private Button _buyButton;
+    
 
     [Header("Item References")]
     [SerializeField] private TextMeshProUGUI _itemNameText;
@@ -17,6 +18,7 @@ public class UI_MerchantWindow : MonoBehaviour
 
     private SO_Merchant _merchant;
     private SO_GenericItem _selectedItem;
+
 
     public void Setup(SO_Merchant merchant)
     {
@@ -38,16 +40,49 @@ public class UI_MerchantWindow : MonoBehaviour
     public void OnBuyClicked()
     {
         if (_selectedItem == null) return;
-        if (CoinManager.Instance.Coins >= _selectedItem.BuyPrice)
+        if (CoinManager.Instance.Coins < _selectedItem.BuyPrice) return;
+
+        if (_selectedItem is SO_Weapon w2 && RandomDropManager.Instance.IsWeaponUnlocked(w2))
         {
-            CoinManager.Instance.Spend(_selectedItem.BuyPrice);
-            // NON aggiunge all'inventario — sblocca solo il drop pool
-            if (_selectedItem is SO_Weapon w)
-                RandomDropManager.Instance.UnlockWeapon(w);
-            else if (_selectedItem is SO_Ability a)
-                RandomDropManager.Instance.UnlockAbility(a);
-            RefreshUI();
+            PopupMessage.Instance.Show("Already unlocked");
+            return;
         }
+        if (_selectedItem is SO_Ability a2 && RandomDropManager.Instance.IsAbilityUnlocked(a2))
+        {
+            PopupMessage.Instance.Show("Already unlocked");
+            return;
+        }
+
+        if (RunManager.Instance.FightsWon == 0)
+        {
+            if (_selectedItem is SO_Weapon && RunManager.Instance.HasBoughtFirstWeapon)
+            {
+                PopupMessage.Instance.Show("You already bought a weapon");
+                return;
+            }
+            if (_selectedItem is SO_Ability && RunManager.Instance.HasBoughtFirstAbility)
+            {
+                PopupMessage.Instance.Show("You already bought an ability");
+                return;
+            }
+        }
+
+        CoinManager.Instance.Spend(_selectedItem.BuyPrice);
+        if (_selectedItem is SO_Weapon w)
+        {
+            RunManager.Instance.SetFirstWeaponBought();
+            RandomDropManager.Instance.UnlockWeapon(w);
+        }
+        else if (_selectedItem is SO_Ability a)
+        {
+            RunManager.Instance.SetFirstAbilityBought();
+            RandomDropManager.Instance.UnlockAbility(a);
+        }
+        else
+        {
+            InventoryManager.Instance.AddItem(_selectedItem);
+        }
+        RefreshUI();
     }
 
     private void RefreshUI()
@@ -60,6 +95,15 @@ public class UI_MerchantWindow : MonoBehaviour
         _itemBuyPriceText.SetText(_selectedItem.BuyPrice.ToString());
         _itemDescriptionText.SetText(_selectedItem.Description);
         _itemIcon.sprite = _selectedItem.Icon;
+    }
+    private void OnEnable()
+    {
+        UIManager.Instance?.OpenUI();
+    }
+
+    private void OnDisable()
+    {
+        UIManager.Instance?.CloseUI();
     }
 }
 

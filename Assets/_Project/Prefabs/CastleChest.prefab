@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 36a3ff1938c7d7f4fbfddd49496c73ed, type: 3}
+  - {fileID: 2100000, guid: 03d1e6a2c34465e40b9926c022f94f9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 167.119, y: 4.194, z: -50.525}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2887654543948202017}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _forwardName: Forward
-  _isOpenName: IsOpen
+  _openName: Open
   _isInsideName: IsInside
   _jumpName: Jump
   _deathName: Death
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _epCost: 0
   _possibleLoot: []
-  _minCoins: 5
-  _maxCoins: 20
+  _minCoins: 30
+  _maxCoins: 90
 --- !u!95 &5620224759727476594
 Animator:
   serializedVersion: 5
@@ -412,7 +412,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: 36a3ff1938c7d7f4fbfddd49496c73ed, type: 3}
+  - {fileID: 2100000, guid: 7632154fd7e5ec5449296ebc2b988fd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

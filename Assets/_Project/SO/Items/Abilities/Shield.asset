@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 8
   _name: Shield
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 479fa1df50263f046879ab300bef4bed, type: 3}
   _description: Reduces next hit damage by 50%
   _buyPrice: 40
   _sellPrice: 0

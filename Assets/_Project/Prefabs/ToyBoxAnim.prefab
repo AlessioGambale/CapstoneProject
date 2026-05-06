@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 36a3ff1938c7d7f4fbfddd49496c73ed, type: 3}
+  - {fileID: 2100000, guid: 03d1e6a2c34465e40b9926c022f94f9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _forwardName: Forward
-  _isOpenName: IsOpen
+  _openName: Open
   _isInsideName: IsInside
   _jumpName: Jump
   _deathName: Death
@@ -412,7 +412,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: 36a3ff1938c7d7f4fbfddd49496c73ed, type: 3}
+  - {fileID: 2100000, guid: 7632154fd7e5ec5449296ebc2b988fd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

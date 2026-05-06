@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 5
   _name: Crit
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 4f981f88dd5015c49bbdd6fc9d35cec9, type: 3}
   _description: Next attack is a guaranteed critical hit
   _buyPrice: 80
   _sellPrice: 0

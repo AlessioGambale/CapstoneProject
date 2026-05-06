@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 6
   _name: Desperation
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 5ff4495294f202b4882bf6c4feff3120, type: 3}
   _description: Set HP to 25%. Next attack deals 1.5x
   _buyPrice: 100
   _sellPrice: 0

@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStateHandler : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerCreature _playerCreature;
     [SerializeField] private InputHandler _input;
+    [SerializeField] private GameObject _loseScreen;
 
     private AnimationParamHandler _paramHandler;
     public bool IsInCombat { get; private set; }
@@ -27,7 +29,6 @@ public class PlayerStateHandler : MonoBehaviour
 
     private void HandleDefeat()
     {
-        RunManager.Instance.ResetRun();
         _playerCreature.Die();
     }
 

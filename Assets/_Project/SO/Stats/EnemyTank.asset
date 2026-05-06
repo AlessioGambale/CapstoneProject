@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EnemyTank
   m_EditorClassIdentifier: 
   _maxHP: 100
-  _attack: 6
-  _defencePercent: 0.4
+  _attack: 7
+  _defencePercent: 0.3
   _luck: 0
   _maxAP: 0
   _maxEP: 0

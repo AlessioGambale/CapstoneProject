@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 10
   _name: HealPotion
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 22c9aea6037f78a45a7741f692c15b1b, type: 3}
   _description: A potion that restore 15% hp
   _buyPrice: 20
   _sellPrice: 0

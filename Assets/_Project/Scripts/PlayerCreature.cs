@@ -53,7 +53,7 @@ public class PlayerCreature : Creature
     {
         if (_input.IsJumpPressed && _groundCheck.IsGrounded)
         {
-           // _paramHandler.Jump();
+             _paramHandler.Jump();
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }

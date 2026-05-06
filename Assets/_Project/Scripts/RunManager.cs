@@ -14,6 +14,10 @@ public class RunManager : GenericSingleton<RunManager>
     public bool HasPulledGear { get; private set; }
     public int FightsWon { get; private set; }
     public bool BossUnlocked { get; private set; }
+    public bool HasBoughtFirstWeapon { get; private set; }
+    public bool HasBoughtFirstAbility { get; private set; }
+    public bool CarRepaired { get; private set; }
+   
 
     public event Action OnPathChosen;
     public event Action OnBossUnlocked;
@@ -24,6 +28,9 @@ public class RunManager : GenericSingleton<RunManager>
     public bool IsZoneTriggered(string zoneId) => _triggeredZones.Contains(zoneId);
     public void RegisterZoneTriggered(string zoneId) => _triggeredZones.Add(zoneId);
     public void SetPathKnot(string knot) => CurrentPathKnot = knot;
+    public void SetFirstWeaponBought() => HasBoughtFirstWeapon = true;
+    public void SetFirstAbilityBought() => HasBoughtFirstAbility = true;
+    public void SetCarRepaired() => CarRepaired = true;
 
     public void SetFightWon()
     {
@@ -48,13 +55,6 @@ public class RunManager : GenericSingleton<RunManager>
         OnPathChosen?.Invoke();
     }
 
-    public string GetFinalPath()
-    {
-        if (string.IsNullOrEmpty(ChosenPath)) return "";
-        string[] steps = ChosenPath.Split('_');
-        return steps[steps.Length - 1];
-    }
-
     public void ResetRun()
     {
         _triggeredZones.Clear();
@@ -65,5 +65,15 @@ public class RunManager : GenericSingleton<RunManager>
         HasPulledGear = false;
         FightsWon = 0;
         BossUnlocked = false;
+        HasBoughtFirstWeapon = false;
+        HasBoughtFirstAbility = false;
     }
+
+    public string GetFinalPath()
+    {
+        if (string.IsNullOrEmpty(ChosenPath)) return "";
+        string[] steps = ChosenPath.Split('_');
+        return steps[steps.Length - 1];
+    }
+
 }
