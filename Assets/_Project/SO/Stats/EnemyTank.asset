@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHP: 100
   _attack: 7
-  _defencePercent: 0.3
+  _defencePercent: 0.2
   _luck: 0
   _maxAP: 0
   _maxEP: 0

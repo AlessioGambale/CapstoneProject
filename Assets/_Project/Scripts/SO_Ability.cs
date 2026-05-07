@@ -27,7 +27,10 @@ public class SO_Ability : SO_GenericItem
 
             case AbilityType.Desperation:
                 int targetHP = Mathf.RoundToInt(player.PlayerLifeController.MaxHealth * 0.25f);
-                player.PlayerLifeController.ForceSetHp(targetHP);
+                if (player.PlayerLifeController.CurrentHealth > targetHP)
+                {
+                    player.PlayerLifeController.ForceSetHp(targetHP);
+                }
                 CombatManager.Instance.ActivateDesperation(_value);
                 break;
 

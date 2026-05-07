@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0071c02e060a54aa342f2cd63e363c, type: 3}
   m_Name: BossStats
   m_EditorClassIdentifier: 
-  _maxHP: 200
-  _attack: 12
+  _maxHP: 400
+  _attack: 18
   _defencePercent: 0.25
   _luck: 0
   _maxAP: 0

@@ -30,7 +30,7 @@ using UnityEngine.Events;
 
     private void Update()
     {
-        if (_playerInRange && !DialogueManager.Instance.IsDialoguePlaying())
+        if (_playerInRange && !DialogueManager.Instance.IsDialoguePlaying() && !UIManager.Instance.IsUIOpen)
         {
             _visualCue.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))

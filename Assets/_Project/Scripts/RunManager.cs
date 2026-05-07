@@ -57,6 +57,10 @@ public class RunManager : GenericSingleton<RunManager>
 
     public void ResetRun()
     {
+        InventoryManager.Instance.ClearInventory();
+        CoinManager.Instance.ResetCoins();
+        RandomDropManager.Instance.ResetDrops();
+
         _triggeredZones.Clear();
         ChosenPath = "";
         CurrentPathKnot = "path_choice_1";

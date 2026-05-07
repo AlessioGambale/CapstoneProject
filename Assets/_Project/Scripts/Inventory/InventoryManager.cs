@@ -38,7 +38,13 @@ public class InventoryManager : GenericSingleton<InventoryManager>
     {
         if (index < 0 || index >= _inventory.Count) return;
         if (_inventory[index] == null) return;
-        _inventory[index].Use(PlayerManager.Instance.CurrentPlayer);
+
+        var item = _inventory[index];
+        item.Use(PlayerManager.Instance.CurrentPlayer);
+
+        if (item.IsConsumable)
+            RemoveItem(index);
+
         OnInventoryChange?.Invoke();
     }
 

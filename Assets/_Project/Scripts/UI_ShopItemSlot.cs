@@ -19,6 +19,7 @@ public class UI_ShopItemSlot : MonoBehaviour
         _onSelect = onSelect;
         _item = item;
         _image.sprite = item.Icon;
+        _image.preserveAspect = true;
         _nameText.SetText(item.Name);
         _priceText.SetText(item.BuyPrice.ToString());
     }

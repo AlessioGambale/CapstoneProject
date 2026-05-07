@@ -42,6 +42,37 @@ public class UI_MerchantWindow : MonoBehaviour
         if (_selectedItem == null) return;
         if (CoinManager.Instance.Coins < _selectedItem.BuyPrice) return;
 
+        if (_selectedItem is SO_Consumable)
+        {
+            if (!RunManager.Instance.HasBoughtFirstWeapon || !RunManager.Instance.HasBoughtFirstAbility)
+            {
+                PopupMessage.Instance.Show("Buy a weapon and ability first!");
+                return;
+            }
+            CoinManager.Instance.Spend(_selectedItem.BuyPrice);
+            InventoryManager.Instance.AddItem(_selectedItem);
+            RefreshUI();
+            return;
+        }
+
+        if (_selectedItem is SO_KeyItem)
+        {
+            if (!RunManager.Instance.HasBoughtFirstWeapon || !RunManager.Instance.HasBoughtFirstAbility)
+            {
+                PopupMessage.Instance.Show("Buy a weapon and ability first!");
+                return;
+            }
+            if (InventoryManager.Instance.HasItem(_selectedItem))
+            {
+                PopupMessage.Instance.Show("Already purchased!");
+                return;
+            }
+            CoinManager.Instance.Spend(_selectedItem.BuyPrice);
+            InventoryManager.Instance.AddItem(_selectedItem);
+            RefreshUI();
+            return;
+        }
+
         if (_selectedItem is SO_Weapon w2 && RandomDropManager.Instance.IsWeaponUnlocked(w2))
         {
             PopupMessage.Instance.Show("Already unlocked");
@@ -52,7 +83,6 @@ public class UI_MerchantWindow : MonoBehaviour
             PopupMessage.Instance.Show("Already unlocked");
             return;
         }
-
         if (RunManager.Instance.FightsWon == 0)
         {
             if (_selectedItem is SO_Weapon && RunManager.Instance.HasBoughtFirstWeapon)
@@ -66,7 +96,6 @@ public class UI_MerchantWindow : MonoBehaviour
                 return;
             }
         }
-
         CoinManager.Instance.Spend(_selectedItem.BuyPrice);
         if (_selectedItem is SO_Weapon w)
         {
@@ -80,6 +109,11 @@ public class UI_MerchantWindow : MonoBehaviour
         }
         else
         {
+            if (InventoryManager.Instance.HasItem(_selectedItem))
+            {
+                PopupMessage.Instance.Show("Already purchased");
+                return;
+            }
             InventoryManager.Instance.AddItem(_selectedItem);
         }
         RefreshUI();
@@ -95,6 +129,7 @@ public class UI_MerchantWindow : MonoBehaviour
         _itemBuyPriceText.SetText(_selectedItem.BuyPrice.ToString());
         _itemDescriptionText.SetText(_selectedItem.Description);
         _itemIcon.sprite = _selectedItem.Icon;
+        _itemIcon.preserveAspect = true;
     }
     private void OnEnable()
     {

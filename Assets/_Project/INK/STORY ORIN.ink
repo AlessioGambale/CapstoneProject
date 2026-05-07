@@ -5,7 +5,7 @@ Ah, Tad… there you are.
 # speaker: Orin
 It's time we made our move.
 # speaker: Orin
-Here—take these coins.
+Here,take these coins.
 # speaker: Orin
 You'll need them to get your first weapons.
 # speaker: Orin
@@ -15,7 +15,7 @@ Remember: she only places weapons and abilities in the chest after you buy them.
 # speaker: Orin
 If you want to find something… you must unlock it first.
 # speaker: Orin
-And don't forget—after every fight, return and take your gear again.
+And don't forget,after every fight, return and take your gear again.
 # speaker: Orin
 Without it… you won't last long.
 # speaker: Orin

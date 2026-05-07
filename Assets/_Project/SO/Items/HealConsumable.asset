@@ -21,4 +21,4 @@ MonoBehaviour:
   _isStackable: 1
   _isConsumable: 1
   _type: 0
-  _value: 15
+  _value: 0.15

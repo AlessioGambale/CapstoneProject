@@ -33,9 +33,6 @@ public class UIManager : GenericSingleton<UIManager>
     public void RestartGame()
     {
         RunManager.Instance.ResetRun();
-        InventoryManager.Instance.ClearInventory();
-        CoinManager.Instance.ResetCoins();
-        RandomDropManager.Instance.ResetDrops();
         Time.timeScale = 1f;
         SceneManager.LoadScene("ExplorationScene");
     }
@@ -53,7 +50,7 @@ public class UIManager : GenericSingleton<UIManager>
     public void Quit()
     {
 #if UNITY_WEBGL
-        Application.OpenURL("https://itch.io");
+        Application.OpenURL("about:blank");
 #else
     Application.Quit();
 #endif

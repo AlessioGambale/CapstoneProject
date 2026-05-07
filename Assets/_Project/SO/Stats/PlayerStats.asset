@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0071c02e060a54aa342f2cd63e363c, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _maxHP: 90
-  _attack: 12
+  _maxHP: 80
+  _attack: 0
   _defencePercent: 0.2
   _luck: 15
   _maxAP: 2

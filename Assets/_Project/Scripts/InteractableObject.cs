@@ -6,7 +6,7 @@ public abstract class InteractableObject : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (_playerInRange && Input.GetKeyDown(KeyCode.E) && !UIManager.Instance.IsUIOpen)
             OnInteract();
     }
 

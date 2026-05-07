@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 11
   _name: Screwdriver
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: e636bceeaebc5ab4bb6c8f9ee12ed55a, type: 3}
   _description: "An old screwdriver from the toy toolbox. Looks like it could fix
     something\u2026 if you find what needs fixing"
   _buyPrice: 60

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,13 @@ public class CombatUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _abilityAPCostText;
     [SerializeField] private Button _abilityButton;
 
+    [Header("Items")]
+    [SerializeField] private TextMeshProUGUI _itemName;
+    [SerializeField] private TextMeshProUGUI _itemDescription;
+    [SerializeField] private Button _itemUseButton;
+    [SerializeField] private TextMeshProUGUI _itemCountText;
+
+    private SO_Consumable _currentConsumable;
 
 
     private void OnEnable()
@@ -51,6 +59,7 @@ public class CombatUI : MonoBehaviour
     {
         RefreshWeapon();
         RefreshAbility();
+        RefreshItems();
         if (TurnManager.Instance != null)
             UpdateButtons(TurnManager.Instance.CurrentAP);
     }
@@ -81,14 +90,43 @@ public class CombatUI : MonoBehaviour
         _abilityAPCostText.SetText($"AP: {ability.ApCost}");
     }
 
+    private void RefreshItems()
+    {
+        var consumables = InventoryManager.Instance.GetAllItems()
+            .OfType<SO_Consumable>()
+            .ToList();
+
+        _currentConsumable = consumables.FirstOrDefault();
+
+        if (_currentConsumable == null)
+        {
+            _itemName?.SetText("No items");
+            _itemDescription?.SetText("");
+            _itemCountText?.SetText("");
+            if (_itemUseButton != null) _itemUseButton.interactable = false;
+            return;
+        }
+
+        int count = consumables.Count;
+        _itemName?.SetText(_currentConsumable.Name);
+        _itemDescription?.SetText(_currentConsumable.Description);
+        _itemCountText?.SetText($"x{count}");
+        if (_itemUseButton != null) _itemUseButton.interactable = true;
+    }
+
     private void UpdateButtons(int currentAP)
     {
+        Debug.Log($"[CombatUI] UpdateButtons — AP: {currentAP}");
+
         SO_Weapon weapon = InventoryManager.Instance.CurrentWeapon;
         SO_Ability ability = InventoryManager.Instance.CurrentAbility;
 
         _baseAttackButton.interactable = weapon != null && currentAP >= weapon.BaseAttackAPCost;
         _specialAttackButton.interactable = weapon != null && currentAP >= weapon.SpecialAttackAPCost;
         _abilityButton.interactable = ability != null && currentAP >= ability.ApCost;
+
+        if (_itemUseButton != null && _currentConsumable != null)
+            _itemUseButton.interactable = currentAP >= 1;
     }
 
     private string GetStatusDescription(StatusType type)
@@ -146,6 +184,13 @@ public class CombatUI : MonoBehaviour
     public void OnAbility()
     {
         CombatManager.Instance.ExecuteAbility();
+    }
+    public void OnUseItem()
+    {
+        if (_currentConsumable == null) return;
+        int index = InventoryManager.Instance.FindItem(_currentConsumable);
+        InventoryManager.Instance.TryToUse(index);
+        RefreshItems();
     }
 
     public void OnEndTurn()

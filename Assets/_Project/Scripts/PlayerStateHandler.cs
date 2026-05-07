@@ -53,8 +53,13 @@ public class PlayerStateHandler : MonoBehaviour
         IsInCombat = false;
         _playerCreature.enabled = true;
         _input.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        if (!UIManager.Instance.IsUIOpen)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         CombatManager.Instance.OnCombatVictory -= HandleVictory;
         CombatManager.Instance.OnCombatDefeat -= HandleDefeat;
         OnCombatExit?.Invoke();

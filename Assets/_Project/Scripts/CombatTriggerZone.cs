@@ -112,10 +112,17 @@ public class CombatTriggerZone : MonoBehaviour
         if (!_isBossFight && _chestPrefab != null && _chestSpawnPoint != null)
             Instantiate(_chestPrefab, _chestSpawnPoint.position, _chestSpawnPoint.rotation);
 
-        if (_isBossFight && _winScreen != null)
+       
+        if (!_isBossFight)
+        {
+            CleanupCombat();
+        }
+        else
+        {
             _winScreen.SetActive(true);
-
-        CleanupCombat();
+            UIManager.Instance.OpenUI();
+        }
+       
     }
 
     private void OnCombatDefeat()
@@ -124,7 +131,12 @@ public class CombatTriggerZone : MonoBehaviour
         CombatManager.Instance.OnCombatDefeat -= OnCombatDefeat;
 
         if (_loseScreen != null)
+        {
             _loseScreen.SetActive(true);
+            UIManager.Instance.OpenUI();
+        }
+            
+        
 
         CleanupCombat();
     }
@@ -136,10 +148,7 @@ public class CombatTriggerZone : MonoBehaviour
         _player.GetComponent<UI_CombatantHUD>()?.Deactivate();
         foreach (var enemy in _enemies)
             if (enemy != null)
-            {
                 enemy.GetComponent<UI_CombatantHUD>()?.Deactivate();
-            }
-               
 
         if (_combatCamera != null)
         {
@@ -154,5 +163,8 @@ public class CombatTriggerZone : MonoBehaviour
         foreach (var enemy in _enemies)
             if (enemy != null)
                 Destroy(enemy.gameObject, 5f);
+
+        if (!_isBossFight)
+            UIManager.Instance?.CloseUI();
     }
 }

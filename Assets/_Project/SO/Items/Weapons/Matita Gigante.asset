@@ -20,7 +20,7 @@ MonoBehaviour:
   _sellPrice: 0
   _isStackable: 0
   _isConsumable: 0
-  _baseDamage: 12
+  _baseDamage: 24
   _statusType: 1
   _statusBuildUp: 15
   _specialType: 1

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerManager : GenericSingleton<PlayerManager>
 {
+    protected override bool ShouldBeDestroyedOnLoad => false;
+
     private GameObject _currentPlayer;
     public GameObject CurrentPlayer => _currentPlayer;
 
