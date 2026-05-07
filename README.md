@@ -1,2 +1,2 @@
-https://play.unity.com/en/games/8b9828aa-edab-4877-b01c-b8f9785e55d3/war-of-toys
+https://play.unity.com/en/games/cf683ef6-e9c1-4925-9054-4f6b42929c92/war-of-toys-demo
 UnityPlay Build Link
